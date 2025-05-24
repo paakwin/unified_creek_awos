@@ -14,37 +14,12 @@ import threading
 from collections import deque
 import configparser
 import math
-from screeninfo import get_monitors
-from display_manager import DisplayManager
-
 
 
 class WeatherStationSystem:
     def __init__(self, root):
         self.root = root
         self.root.title("Weather Station Dashboard")
-        
-        # Get monitor information
-        monitors = get_monitors()
-        
-        # Find displays by position
-        main_display = next(m for m in monitors if m.x == 0)  # XWAYLAND26
-        p5_display = next(m for m in monitors if m.x == 1920)  # XWAYLAND27
-        
-        # Configure main window for LCD display (XWAYLAND26)
-        self.root.geometry(f"+{main_display.x}+{main_display.y}")
-        
-        # Create window for P5 panel (XWAYLAND27)
-        self.p5_window = tk.Toplevel()
-        self.p5_window.geometry(f"256x192+{p5_display.x}+{p5_display.y}")
-        
-        # Make P5 window borderless
-        self.p5_window.attributes('-type', 'dock')
-        self.p5_window.overrideredirect(True)
-        
-        # Setup content
-        self.setup_p5_content()
-        self.setup_main_content()
         
         # Initialize configuration
         self.load_config()
@@ -652,7 +627,7 @@ class WeatherStationSystem:
         elif 51 <= aqi <= 100:
             return "Moderate", "#FFFF00"
         elif 101 <= aqi <= 150:
-            return "Unhealthy for Sensitive Groups", "#FF7E00"
+            return "Unhealthy", "#FF7E00"
         elif 151 <= aqi <= 200:
             return "Unhealthy", "#FF0000"
         elif 201 <= aqi <= 300:
@@ -703,78 +678,8 @@ class WeatherStationSystem:
 
     def update_display(self):
         """Update display using sensor data"""
-        try:
-            if hasattr(self, 'sensor_data') and self.sensor_data:
-                self.log(f"Updating display with data: {self.sensor_data}")  # Debug log
-                
-                # Environment data
-                if 'temperature' in self.sensor_data:
-                    self.bg_canvas.itemconfig(self.temperature_value, 
-                        text=f"{self.sensor_data['temperature']:.1f}°C")
-                
-                # Humidity data with color changes
-                if 'humidity' in self.sensor_data:
-                    humidity = self.sensor_data['humidity']
-                    state, color = self.get_humidity_state(humidity)
-                    # Update both the value and its color
-                    self.bg_canvas.itemconfig(self.humidity_value, 
-                        text=f"{humidity:.1f}%",
-                        fill=color)  # Add color update here
-                    self.bg_canvas.itemconfig(self.humidity_state_value, 
-                        text=state,
-                        fill=color)
-                
-                if 'pressure' in self.sensor_data:
-                    self.bg_canvas.itemconfig(self.pressure_value, 
-                        text=f"{self.sensor_data['pressure']:.1f} hPa")
-                
-                # Wind data
-                if 'wind_speed' in self.sensor_data:
-                    speed_kmh = self.sensor_data['wind_speed'] * 3.6  # Convert m/s to km/h
-                    self.bg_canvas.itemconfig(self.wind_speed_value,
-                        text=f"{speed_kmh:.1f} km/hr")
-                
-                if 'wind_dir_degrees' in self.sensor_data:
-                    self.bg_canvas.itemconfig(self.wind_direction_value,
-                        text=f"{self.sensor_data['wind_dir_degrees']}°")
-                
-                # Rainfall data
-                if 'rainfall' in self.sensor_data:
-                    rain = self.sensor_data['rainfall']
-                    if abs(rain - self.last_rain_value) < self.rain_reset_threshold:
-                        self.no_rain_counter += 1
-                        if self.no_rain_counter >= self.rain_reset_time:
-                            rain = 0
-                            self.no_rain_counter = 0
-                    else:
-                        self.no_rain_counter = 0
-                    self.last_rain_value = rain
-                    self.bg_canvas.itemconfig(self.rain_value,
-                        text=f"{rain:.1f} mm")
-                
-                # UV data
-                if 'uv_index' in self.sensor_data:
-                    uv = self.sensor_data['uv_index']
-                    self.bg_canvas.itemconfig(self.uv_value,
-                        text=f"{uv:.2f}")
-                    state, color = self.get_uv_state(uv)
-                    self.bg_canvas.itemconfig(self.uv_state_value,
-                        text=state, fill=color)
-                
-                # AQI data
-                if 'pm2_5' in self.sensor_data:
-                    aqi = self.sensor_data['pm2_5']
-                    self.bg_canvas.itemconfig(self.aqi_value,
-                        text=f"{aqi:.0f}")
-                    state, color = self.get_aqi_state(aqi)
-                    self.bg_canvas.itemconfig(self.aqi_state_value,
-                        text=state, fill=color)
-                
-        except Exception as e:
-            self.log(f"Display update error: {e}", level=logging.ERROR)
-        finally:
-            # Schedule next update
-            self.root.after(self.config['gui']['update_interval'], self.update_display)
+        # Simplified display update logic
+        pass
 
     def shutdown(self):
         """Cleanup before exiting"""
@@ -788,31 +693,8 @@ class WeatherStationSystem:
             self.modbus_client.close()
         self.root.destroy()
 
-    def setup_p5_content(self):
-        # P5 panel specific content (256x192)
-        canvas = tk.Canvas(self.p5_window, width=256, height=192)
-        canvas.pack()
-        # Add your P5 display content here
-    
-    def setup_main_content(self):
-        # Main display content
-        # Add your controls and other UI elements here
-        pass
-class WeatherStation:
-    def __init__(self):
-        self.display = DisplayManager()
-        self.setup_application()
-    
-    def setup_application(self):
-        # Setup your weather station GUI elements
-        canvas = tk.Canvas(self.display.root, width=256, height=192)
-        canvas.pack()
-        
-        # Add your weather station widgets and logic here
-        
-    def run(self):
-        self.display.root.mainloop()
 
 if __name__ == "__main__":
-    app = WeatherStation()
-    app.run()
+    root = tk.Tk()
+    app = WeatherStationSystem(root)
+    root.mainloop()
