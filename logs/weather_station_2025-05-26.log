@@ -1,0 +1,52 @@
+2025-05-26 00:01:04,553 - INFO - Weather Station System Initialized
+2025-05-26 00:01:05,400 - INFO - Env: 29.5°C, 46.7%, 1008.2hPa
+2025-05-26 00:01:07,445 - INFO - UV: 0.00
+2025-05-26 00:01:09,609 - INFO - AQI Sensor Data: {'co2': 667, 'formaldehyde': 21, 'tvoc': 83, 'pm2_5': 12, 'pm10': 14, 'aqi_temperature': 29.4, 'aqi_humidity': 54.5}
+2025-05-26 00:01:09,647 - INFO - Wind Speed: 0.3 m/s
+2025-05-26 00:01:09,682 - INFO - Wind Direction: 250° (WSW)
+2025-05-26 00:01:09,711 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-26 00:01:10,745 - INFO - Env: 29.5°C, 46.6%, 1008.2hPa
+2025-05-26 00:01:12,799 - INFO - UV: 0.08
+2025-05-26 00:01:14,952 - INFO - AQI Sensor Data: {'co2': 665, 'formaldehyde': 20, 'tvoc': 66, 'pm2_5': 12, 'pm10': 14, 'aqi_temperature': 29.4, 'aqi_humidity': 54.5}
+2025-05-26 00:01:14,982 - INFO - Wind Speed: 0.3 m/s
+2025-05-26 00:01:15,016 - INFO - Wind Direction: 317° (NW)
+2025-05-26 00:01:15,046 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-26 00:01:16,080 - INFO - Env: 29.5°C, 46.7%, 1008.2hPa
+2025-05-26 00:01:17,611 - INFO - Shutting down weather station system
+2025-05-26 00:01:18,127 - INFO - UV: 0.00
+2025-05-26 00:01:19,616 - ERROR - AQI sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:01:19,616 - ERROR - Wind speed sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:01:19,616 - ERROR - Wind direction sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:01:19,616 - ERROR - Rainfall sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:01:54,164 - INFO - Weather Station System Initialized
+2025-05-26 00:01:54,552 - INFO - Env: 29.4°C, 46.5%, 1008.2hPa
+2025-05-26 00:01:56,598 - INFO - UV: 0.00
+2025-05-26 00:01:58,748 - INFO - AQI Sensor Data: {'co2': 662, 'formaldehyde': 20, 'tvoc': 79, 'pm2_5': 11, 'pm10': 13, 'aqi_temperature': 29.1, 'aqi_humidity': 54.8}
+2025-05-26 00:01:58,778 - INFO - Wind Speed: 0.3 m/s
+2025-05-26 00:01:58,812 - INFO - Wind Direction: 309° (NW)
+2025-05-26 00:01:58,842 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-26 00:01:59,876 - INFO - Env: 29.4°C, 46.5%, 1008.2hPa
+2025-05-26 00:02:01,919 - INFO - UV: 0.00
+2025-05-26 00:02:04,077 - INFO - AQI Sensor Data: {'co2': 660, 'formaldehyde': 20, 'tvoc': 65, 'pm2_5': 11, 'pm10': 13, 'aqi_temperature': 29.2, 'aqi_humidity': 54.8}
+2025-05-26 00:02:04,107 - INFO - Wind Speed: 0.3 m/s
+2025-05-26 00:02:04,141 - INFO - Wind Direction: 293° (WNW)
+2025-05-26 00:02:04,171 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-26 00:02:05,205 - INFO - Env: 29.5°C, 46.4%, 1008.2hPa
+2025-05-26 00:02:07,251 - INFO - UV: 0.02
+2025-05-26 00:02:09,402 - INFO - AQI Sensor Data: {'co2': 662, 'formaldehyde': 20, 'tvoc': 79, 'pm2_5': 12, 'pm10': 14, 'aqi_temperature': 29.2, 'aqi_humidity': 54.7}
+2025-05-26 00:02:09,432 - INFO - Wind Speed: 0.2 m/s
+2025-05-26 00:02:09,467 - INFO - Wind Direction: 191° (S)
+2025-05-26 00:02:09,496 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-26 00:02:10,531 - INFO - Env: 29.4°C, 46.5%, 1008.2hPa
+2025-05-26 00:02:12,575 - INFO - UV: 0.02
+2025-05-26 00:02:14,731 - INFO - AQI Sensor Data: {'co2': 662, 'formaldehyde': 20, 'tvoc': 78, 'pm2_5': 12, 'pm10': 14, 'aqi_temperature': 29.3, 'aqi_humidity': 54.6}
+2025-05-26 00:02:14,761 - INFO - Wind Speed: 0.2 m/s
+2025-05-26 00:02:14,795 - INFO - Wind Direction: 266° (W)
+2025-05-26 00:02:14,825 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-26 00:02:15,860 - INFO - Env: 29.4°C, 46.4%, 1008.2hPa
+2025-05-26 00:02:16,433 - INFO - Shutting down weather station system
+2025-05-26 00:02:17,905 - INFO - UV: 0.02
+2025-05-26 00:02:18,433 - ERROR - AQI sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:02:18,434 - ERROR - Wind speed sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:02:18,434 - ERROR - Wind direction sensor error: [Errno 9] Bad file descriptor
+2025-05-26 00:02:18,434 - ERROR - Rainfall sensor error: [Errno 9] Bad file descriptor
