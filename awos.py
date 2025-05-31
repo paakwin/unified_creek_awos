@@ -17,6 +17,7 @@ import math
 import json
 from logging.handlers import RotatingFileHandler
 import sys
+import pandas as pd
 
 # Disable DecompressionBombWarning
 Image.MAX_IMAGE_PIXELS = None
@@ -418,7 +419,7 @@ class WeatherStationSystem:
                 'widget': 'pressure_value'
             },
             'wind_speed': {
-                'parser': lambda data: data.get('wind_speed') * 3.6 if data.get('wind_speed') else None,  # Convert to km/h
+                'parser': lambda data: data.get('wind_speed', 0.0) * 3.6,  # Convert to km/h, default to 0.0
                 'display_format': lambda v: f"{v:.1f}",
                 'widget': 'wind_speed_value'
             },
@@ -432,16 +433,16 @@ class WeatherStationSystem:
                 'display_format': lambda v: f"{v:.1f}",
                 'widget': 'rain_value'
             },
-            'uv': {
-                'parser': lambda data: data.get('uv_index'),
-                'display_format': lambda v: f"{v:.2f}",
-                'widget': 'uv_value'
-            },
-            'aqi': {
-                'parser': lambda data: self.calculate_aqi(data.get('pm2_5')) if data.get('pm2_5') else None,
-                'display_format': lambda v: f"{v:.0f}",
-                'widget': 'aqi_value'
-            }
+        'uv': {
+            'parser': lambda data: data.get('uv_index'),
+            'display_format': lambda v: f"{v:.2f}" if v is not None else "--",
+            'widget': 'uv_value'
+        },
+        'aqi': {
+            'parser': lambda data: self.calculate_aqi(data.get('pm2_5')),
+            'display_format': lambda v: f"{v:.0f}" if v is not None else "--",
+            'widget': 'aqi_value'
+        }
         }
 
     def process_rainfall(self, current_rain):
@@ -576,36 +577,53 @@ class WeatherStationSystem:
             )
             
             if result.isError():
-                return None
-                
+                return {'uv_index': 0.0}  # Return 0.0 instead of None
+            
             return {'uv_index': result.registers[0] / 100.0}
         except Exception as e:
             self.log(f"UV sensor error: {e}", level=logging.ERROR)
-            return None
+            return {'uv_index': 0.0}  # Return 0.0 instead of None
 
     def read_aqi_sensor(self):
-        """Read AQI sensor data"""
+        """Read AQI data from CSV file"""
         try:
-            result = self.modbus_client.read_holding_registers(
-                address=0x02,
-                count=7,
-                slave=self.config['sensors']['aqi']
-            )
+            # Get current timestamp in local time (tz-naive)
+            current_time = datetime.now()
             
-            if result.isError():
+            # Read the CSV file
+            csv_path = os.path.join(os.path.dirname(__file__), 'aqi', 'karachi_aqi_data_with_pst.csv')
+            
+            if not os.path.exists(csv_path):
+                self.log(f"AQI data file not found: {csv_path}", level=logging.ERROR)
                 return None
                 
-            return {
-                'co2': result.registers[0],
-                'formaldehyde': result.registers[1],
-                'tvoc': result.registers[2],
-                'pm2_5': result.registers[3],
-                'pm10': result.registers[4],
-                'aqi_temperature': result.registers[5] / 10.0,
-                'aqi_humidity': result.registers[6] / 10.0
-            }
+            try:
+                df = pd.read_csv(csv_path)
+                
+                # Convert date column to datetime and ensure it's tz-naive
+                df['date'] = pd.to_datetime(df['date']).dt.tz_localize(None)
+                
+                # Get the closest timestamp row
+                closest_time_row = df.iloc[(df['date'] - current_time).abs().argsort()[0]]
+                
+                data = {
+                    'co2': float(closest_time_row['carbon_dioxide']),
+                    'pm2_5': float(closest_time_row['pm2_5']),
+                    'pm10': float(closest_time_row['pm10']),
+                    'carbon_monoxide': float(closest_time_row['carbon_monoxide']),
+                    'nitrogen_dioxide': float(closest_time_row['nitrogen_dioxide']),
+                    'sulphur_dioxide': float(closest_time_row['sulphur_dioxide']),
+                    'ozone': float(closest_time_row['ozone'])
+                }
+                
+                return data
+                
+            except pd.errors.EmptyDataError:
+                self.log("AQI data file is empty", level=logging.ERROR)
+                return None
+                
         except Exception as e:
-            self.log(f"AQI sensor error: {e}", level=logging.ERROR)
+            self.log(f"Error reading AQI data from CSV: {e}", level=logging.ERROR)
             return None
 
     def read_wind_speed(self):
@@ -618,12 +636,12 @@ class WeatherStationSystem:
             )
             
             if result.isError():
-                return None
-                
+                return {'wind_speed': 0.0}  # Return 0.0 instead of None
+            
             return {'wind_speed': result.registers[0] / 10.0}
         except Exception as e:
             self.log(f"Wind speed sensor error: {e}", level=logging.ERROR)
-            return None
+            return {'wind_speed': 0.0}  # Return 0.0 instead of None
 
     def read_wind_direction(self):
         """Read wind direction in degrees and cardinal direction"""
@@ -758,6 +776,25 @@ class WeatherStationSystem:
         else:
             return "HAZARDOUS", "#7E0023"
 
+    # def get_uv_state(self, uv):
+    #     """Determine UV state and color"""
+    #     if uv is None:
+    #         return "N/A", "#FFFFFF"
+    #     if aqi is None:
+    #         return "N/A", "#FFFFFF"
+    #     elif 0 <= aqi <= 50:
+    #         return "GOOD", "#00E400"
+    #     elif 51 <= aqi <= 100:
+    #         return "MODERATE", "#FFFF00"
+    #     elif 101 <= aqi <= 150:
+    #         return "UNHEALTHY", "#FF7E00"
+    #     elif 151 <= aqi <= 200:
+    #         return "UNHEALTHY", "#FF0000"
+    #     elif 201 <= aqi <= 300:
+    #         return "VERY UNHEALTHY", "#8F3F97"
+    #     else:
+    #         return "HAZARDOUS", "#7E0023"
+
     def get_uv_state(self, uv):
         """Determine UV state and color"""
         if uv is None:
@@ -824,21 +861,31 @@ class WeatherStationSystem:
 
     def update_state_displays(self):
         """Update state displays with appropriate colors"""
-        # Humidity state
-        hum_state, hum_color = self.get_humidity_state(self.sensor_data.get('humidity'))
-        self.bg_canvas.itemconfig(self.humidity_value, fill=hum_color)
-        self.bg_canvas.itemconfig(self.humidity_state_value, text=hum_state, fill=hum_color)
-        
-        # AQI state
-        aqi = self.calculate_aqi(self.sensor_data.get('pm2_5')) if self.sensor_data.get('pm2_5') else None
-        aqi_state, aqi_color = self.get_aqi_state(aqi)
-        self.bg_canvas.itemconfig(self.aqi_value, fill=aqi_color)
-        self.bg_canvas.itemconfig(self.aqi_state_value, text=aqi_state, fill=aqi_color)
-        
-        # UV state
-        uv_state, uv_color = self.get_uv_state(self.sensor_data.get('uv_index'))
-        self.bg_canvas.itemconfig(self.uv_value, fill=uv_color)
-        self.bg_canvas.itemconfig(self.uv_state_value, text=uv_state, fill=uv_color)
+        try:
+            # Humidity state
+            humidity = self.sensor_data.get('humidity')
+            if humidity is not None:
+                hum_state, hum_color = self.get_humidity_state(humidity)
+                self.bg_canvas.itemconfig(self.humidity_value, fill=hum_color)
+                self.bg_canvas.itemconfig(self.humidity_state_value, text=hum_state, fill=hum_color)
+            
+            # UV state
+            uv = self.sensor_data.get('uv_index')
+            if uv is not None:
+                uv_state, uv_color = self.get_uv_state(uv)
+                self.bg_canvas.itemconfig(self.uv_value, fill=uv_color)
+                self.bg_canvas.itemconfig(self.uv_state_value, text=uv_state, fill=uv_color)
+            
+            # AQI state
+            pm2_5 = self.sensor_data.get('pm2_5')
+            if pm2_5 is not None:
+                aqi = self.calculate_aqi(pm2_5)
+                aqi_state, aqi_color = self.get_aqi_state(aqi)
+                self.bg_canvas.itemconfig(self.aqi_value, fill=aqi_color)
+                self.bg_canvas.itemconfig(self.aqi_state_value, text=aqi_state, fill=aqi_color)
+                
+        except Exception as e:
+            self.log(f"Error updating state displays: {e}", level=logging.ERROR)
 
     def toggle_mapping_mode(self, event=None):
         """Toggle coordinate mapping mode"""

@@ -1,0 +1,67 @@
+2025-05-28 20:30:28,049 - INFO - Weather Station System Initialized
+2025-05-28 20:30:28,476 - INFO - Env: 30.3°C, 58.0%, 1004.1hPa
+2025-05-28 20:30:30,660 - INFO - AQI Sensor Data: {'co2': 453, 'formaldehyde': 46, 'tvoc': 80, 'pm2_5': 40, 'pm10': 49, 'aqi_temperature': 30.7, 'aqi_humidity': 61.5}
+2025-05-28 20:30:30,687 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:30:30,718 - INFO - Wind Direction: 246° (WSW)
+2025-05-28 20:30:30,745 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:30:31,772 - INFO - Env: 30.2°C, 57.8%, 1004.1hPa
+2025-05-28 20:30:33,947 - INFO - AQI Sensor Data: {'co2': 453, 'formaldehyde': 46, 'tvoc': 80, 'pm2_5': 40, 'pm10': 49, 'aqi_temperature': 30.7, 'aqi_humidity': 61.5}
+2025-05-28 20:30:33,974 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:30:34,005 - INFO - Wind Direction: 247° (WSW)
+2025-05-28 20:30:34,032 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:30:35,058 - INFO - Env: 30.3°C, 58.0%, 1004.1hPa
+2025-05-28 20:30:37,234 - INFO - AQI Sensor Data: {'co2': 454, 'formaldehyde': 46, 'tvoc': 80, 'pm2_5': 40, 'pm10': 49, 'aqi_temperature': 30.8, 'aqi_humidity': 61.6}
+2025-05-28 20:30:37,261 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:30:37,293 - INFO - Wind Direction: 244° (WSW)
+2025-05-28 20:30:37,320 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:30:38,347 - INFO - Env: 30.2°C, 57.8%, 1004.1hPa
+2025-05-28 20:30:39,822 - INFO - Shutting down weather station system
+2025-05-28 20:30:40,528 - INFO - AQI Sensor Data: {'co2': 454, 'formaldehyde': 46, 'tvoc': 79, 'pm2_5': 40, 'pm10': 49, 'aqi_temperature': 30.8, 'aqi_humidity': 61.6}
+2025-05-28 20:30:40,555 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:30:40,587 - INFO - Wind Direction: 241° (WSW)
+2025-05-28 20:30:40,614 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:31:15,834 - INFO - Weather Station System Initialized
+2025-05-28 20:31:16,233 - INFO - Env: 30.2°C, 57.7%, 1004.1hPa
+2025-05-28 20:31:18,417 - INFO - AQI Sensor Data: {'co2': 459, 'formaldehyde': 46, 'tvoc': 75, 'pm2_5': 37, 'pm10': 46, 'aqi_temperature': 30.9, 'aqi_humidity': 60.9}
+2025-05-28 20:31:18,448 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:31:18,484 - INFO - Wind Direction: 248° (WSW)
+2025-05-28 20:31:18,512 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:31:19,539 - INFO - Env: 30.2°C, 57.6%, 1004.1hPa
+2025-05-28 20:31:21,714 - INFO - AQI Sensor Data: {'co2': 459, 'formaldehyde': 48, 'tvoc': 76, 'pm2_5': 37, 'pm10': 46, 'aqi_temperature': 30.9, 'aqi_humidity': 60.9}
+2025-05-28 20:31:21,741 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:31:21,773 - INFO - Wind Direction: 250° (WSW)
+2025-05-28 20:31:21,800 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:31:22,826 - INFO - Env: 30.2°C, 57.5%, 1004.1hPa
+2025-05-28 20:31:25,010 - INFO - AQI Sensor Data: {'co2': 458, 'formaldehyde': 48, 'tvoc': 76, 'pm2_5': 37, 'pm10': 46, 'aqi_temperature': 30.9, 'aqi_humidity': 60.6}
+2025-05-28 20:31:25,037 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:31:25,068 - INFO - Wind Direction: 268° (W)
+2025-05-28 20:31:25,096 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:31:26,122 - INFO - Env: 30.2°C, 57.3%, 1004.1hPa
+2025-05-28 20:31:28,306 - INFO - AQI Sensor Data: {'co2': 457, 'formaldehyde': 46, 'tvoc': 73, 'pm2_5': 37, 'pm10': 46, 'aqi_temperature': 30.8, 'aqi_humidity': 60.6}
+2025-05-28 20:31:28,334 - INFO - Wind Speed: 0.1 m/s
+2025-05-28 20:31:28,365 - INFO - Wind Direction: 264° (W)
+2025-05-28 20:31:28,392 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:31:29,255 - INFO - Shutting down weather station system
+2025-05-28 20:45:40,987 - INFO - Weather Station System Initialized
+2025-05-28 20:45:41,475 - ERROR - Display update error: unsupported operand type(s) for *: 'NoneType' and 'float'
+2025-05-28 20:45:41,504 - INFO - Env: 29.8°C, 51.5%, 1004.1hPa
+2025-05-28 20:45:42,476 - ERROR - Display update error: unsupported operand type(s) for *: 'NoneType' and 'float'
+2025-05-28 20:45:43,476 - ERROR - Display update error: unsupported operand type(s) for *: 'NoneType' and 'float'
+2025-05-28 20:45:43,519 - INFO - UV: 0.00
+2025-05-28 20:45:43,685 - INFO - AQI Sensor Data: {'co2': 472, 'formaldehyde': 45, 'tvoc': 78, 'pm2_5': 33, 'pm10': 41, 'aqi_temperature': 30.7, 'aqi_humidity': 55.8}
+2025-05-28 20:45:43,712 - INFO - Wind Speed: 0.0 m/s
+2025-05-28 20:45:43,743 - INFO - Wind Direction: 222° (SW)
+2025-05-28 20:45:43,770 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:45:44,797 - INFO - Env: 29.8°C, 51.5%, 1004.1hPa
+2025-05-28 20:45:46,809 - INFO - UV: 0.00
+2025-05-28 20:45:46,972 - INFO - AQI Sensor Data: {'co2': 474, 'formaldehyde': 45, 'tvoc': 70, 'pm2_5': 33, 'pm10': 41, 'aqi_temperature': 30.7, 'aqi_humidity': 55.8}
+2025-05-28 20:45:46,999 - INFO - Wind Speed: 0.0 m/s
+2025-05-28 20:45:47,031 - INFO - Wind Direction: 222° (SW)
+2025-05-28 20:45:47,058 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:45:48,084 - INFO - Env: 29.8°C, 51.5%, 1004.1hPa
+2025-05-28 20:45:50,096 - INFO - UV: 0.00
+2025-05-28 20:45:50,259 - INFO - AQI Sensor Data: {'co2': 477, 'formaldehyde': 46, 'tvoc': 70, 'pm2_5': 33, 'pm10': 41, 'aqi_temperature': 30.7, 'aqi_humidity': 55.9}
+2025-05-28 20:45:50,286 - INFO - Wind Speed: 0.0 m/s
+2025-05-28 20:45:50,318 - INFO - Wind Direction: 223° (SW)
+2025-05-28 20:45:50,345 - INFO - Raw Rainfall Reading: 0.0 mm
+2025-05-28 20:45:51,327 - INFO - Shutting down weather station system
