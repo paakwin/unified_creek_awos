@@ -30,6 +30,7 @@ class WeatherStationSystem:
     def __init__(self, root):
         self.root = root
         self.root.title("Weather Station Dashboard")
+        self.root.after(1000, self._keep_focus)  # Add periodic focus check
         
         # Initialize system
         self.load_config()
@@ -53,7 +54,12 @@ class WeatherStationSystem:
         
         # Schedule periodic log rotation check
         self.root.after(3600000, self.check_log_rotation)  # Check every hour
-        
+
+    def _keep_focus(self):
+        """Periodically bring window to front to fight popups"""
+        self.root.lift()
+        self.root.after(1000, self._keep_focus)  # Recheck every 1 second
+
     def load_config(self):
         """Load configuration from file or set defaults"""
         self.config = {
@@ -759,27 +765,8 @@ class WeatherStationSystem:
             'time': now.strftime('%H:%M')
         }
 
-    def get_aqi_state(self, aqi):
-        """Determine AQI state and color"""
-        if aqi is None:
-            return "N/A", "#FFFFFF"
-        elif 0 <= aqi <= 50:
-            return "GOOD", "#00E400"
-        elif 51 <= aqi <= 100:
-            return "MODERATE", "#FFFF00"
-        elif 101 <= aqi <= 150:
-            return "UNHEALTHY", "#FF7E00"
-        elif 151 <= aqi <= 200:
-            return "UNHEALTHY", "#FF0000"
-        elif 201 <= aqi <= 300:
-            return "VERY UNHEALTHY", "#8F3F97"
-        else:
-            return "HAZARDOUS", "#7E0023"
-
-    # def get_uv_state(self, uv):
-    #     """Determine UV state and color"""
-    #     if uv is None:
-    #         return "N/A", "#FFFFFF"
+    # def get_aqi_state(self, aqi):
+    #     """Determine AQI state and color"""
     #     if aqi is None:
     #         return "N/A", "#FFFFFF"
     #     elif 0 <= aqi <= 50:
@@ -795,35 +782,85 @@ class WeatherStationSystem:
     #     else:
     #         return "HAZARDOUS", "#7E0023"
 
+    # def get_uv_state(self, uv):
+    #     """Determine UV state and color"""
+    #     if uv is None:
+    #         return "N/A", "#FFFFFF"
+    #     elif 0 <= uv <= 2:
+    #         return "LOW", "#00E400"
+    #     elif 3 <= uv <= 5:
+    #         return "MODERATE", "#FFFF00"
+    #     elif 6 <= uv <= 7:
+    #         return "HIGH", "#FF7E00"
+    #     elif 8 <= uv <= 10:
+    #         return "VERY HIGH", "#FF0000"
+    #     else:
+    #         return "EXTREME", "#8F3F97"
+
+    # def get_humidity_state(self, humidity):
+    #     """Determine humidity state and color"""
+    #     if humidity is None:
+    #         return "N/A", "#FFFFFF"
+    #     elif 0 <= humidity <= 30:
+    #         return "LOW", "#3EC1EC"
+    #     elif 31 <= humidity <= 50:
+    #         return "NORMAL", "#00E400"
+    #     elif 51 <= humidity <= 60:
+    #         return "SLIGHTLY HIGH", "#FFFF00"
+    #     elif 61 <= humidity <= 70:
+    #         return "HIGH", "#FF7E00"
+    #     else:
+    #         return "VERY HIGH", "#FF0000"
+
+    def get_aqi_state(self, aqi):
+        """Determine AQI state and color"""
+        if aqi is None:
+            return "N/A", "#FFFFFF"  # White
+        aqi_float = float(aqi)
+        if 0.0 <= aqi_float <= 50.0:
+            return "GOOD", "#39FF14"  # Neon Green
+        elif 50.1 <= aqi_float <= 100.0:
+            return "MODERATE", "#FFFF00"  # Yellow
+        elif 100.1 <= aqi_float <= 150.0:
+            return "UNHEALTHY", "#FF7E00"  # Orange
+        elif 150.1 <= aqi_float <= 200.0:
+            return "UNHEALTHY", "#FF0000"  # Red
+        elif 200.1 <= aqi_float <= 300.0:
+            return "VERY UNHEALTHY", "#8F3F97"  # Purple
+        else:
+            return "HAZARDOUS", "#7E0023"  # Dark Red
+
     def get_uv_state(self, uv):
         """Determine UV state and color"""
         if uv is None:
-            return "N/A", "#FFFFFF"
-        elif 0 <= uv <= 2:
-            return "LOW", "#00E400"
-        elif 3 <= uv <= 5:
-            return "MODERATE", "#FFFF00"
-        elif 6 <= uv <= 7:
-            return "HIGH", "#FF7E00"
-        elif 8 <= uv <= 10:
-            return "VERY HIGH", "#FF0000"
+            return "N/A", "#FFFFFF"  # White
+        uv_float = float(uv)
+        if 0.0 <= uv_float <= 2.0:
+            return "LOW", "#39FF14"  # Neon Green
+        elif 2.1 <= uv_float <= 5.0:
+            return "MODERATE", "#FFFF00"  # Yellow
+        elif 5.1 <= uv_float <= 7.0:
+            return "HIGH", "#FF7E00"  # Orange
+        elif 7.1 <= uv_float <= 10.0:
+            return "VERY HIGH", "#FF0000"  # Red
         else:
-            return "EXTREME", "#8F3F97"
+            return "EXTREME", "#8F3F97"  # Purple
 
     def get_humidity_state(self, humidity):
         """Determine humidity state and color"""
         if humidity is None:
-            return "N/A", "#FFFFFF"
-        elif 0 <= humidity <= 30:
-            return "LOW", "#3EC1EC"
-        elif 31 <= humidity <= 50:
-            return "NORMAL", "#00E400"
-        elif 51 <= humidity <= 60:
-            return "SLIGHTLY HIGH", "#FFFF00"
-        elif 61 <= humidity <= 70:
-            return "HIGH", "#FF7E00"
+            return "N/A", "#FFFFFF"  # White
+        humidity_float = float(humidity)
+        if 0.0 <= humidity_float <= 30.0:
+            return "LOW", "#3EC1EC"  # Sky Blue
+        elif 30.1 <= humidity_float <= 50.0:
+            return "NORMAL", "#39FF14"  # Neon Green
+        elif 50.1 <= humidity_float <= 60.0:
+            return "SLIGHTLY HIGH", "#FFFF00"  # Yellow
+        elif 60.1 <= humidity_float <= 70.0:
+            return "HIGH", "#FF7E00"  # Orange
         else:
-            return "VERY HIGH", "#FF0000"
+            return "VERY HIGH", "#FF0000"  # Red
 
     def update_static_elements(self):
         """Update date, time and sun information"""
@@ -991,6 +1028,7 @@ class WeatherStationSystem:
 if __name__ == "__main__":
     try:
         root = tk.Tk()
+        root.wm_attributes("-topmost", True)  # Keep window always on top
         app = WeatherStationSystem(root)
         root.protocol("WM_DELETE_WINDOW", app.shutdown)
         root.mainloop()
