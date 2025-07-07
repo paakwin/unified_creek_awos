@@ -425,8 +425,8 @@ class WeatherStationSystem:
                 'widget': 'pressure_value'
             },
             'wind_speed': {
-                'parser': lambda data: data.get('wind_speed', 0.0) * 3.6,  # Convert to km/h, default to 0.0
-                'display_format': lambda v: f"{v:.1f}",
+                'parser': lambda data: self.process_sensor_value(data.get('wind_speed'), 3.6),  # Convert to km/h
+                'display_format': lambda v: f"{v:.1f}" if v is not None else "--",
                 'widget': 'wind_speed_value'
             },
             'wind_direction': {
@@ -764,6 +764,15 @@ class WeatherStationSystem:
             'date': now.strftime('%d %b').replace(now.strftime('%b'), now.strftime('%b').upper()) + now.strftime(' %Y'),
             'time': now.strftime('%H:%M')
         }
+
+    def process_sensor_value(self, value, multiplier=1.0):
+        """Helper to process sensor values with None handling"""
+        if value is None:
+            return None
+        try:
+            return float(value) * multiplier
+        except (ValueError, TypeError):
+            return None
 
     # def get_aqi_state(self, aqi):
     #     """Determine AQI state and color"""
