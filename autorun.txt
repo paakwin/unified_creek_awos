@@ -1,0 +1,44 @@
+First, create a startup script:
+
+#!/bin/bash
+
+# Change to project directory
+cd /home/asif/Desktop/unified_creek_awos
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Run the Python script
+python awos.py
+
+
+Make the startup script executable:
+chmod +x /home/asif/Desktop/unified_creek_awos/start_awos.sh
+
+Create the autostart directory:
+mkdir -p ~/.config/autostart
+
+Create the desktop entry file:
+[Desktop Entry]
+Name=AWOS
+Comment=Start AWOS Weather Station
+Exec=/home/asif/Desktop/unified_creek_awos/start_awos.sh
+Type=Application
+X-GNOME-Autostart-enabled=true
+
+Make the desktop entry file executable
+chmod +x ~/.config/autostart/awos.desktop
+
+Test the startup script:
+/home/asif/Desktop/unified_creek_awos/start_awos.sh
+
+If everything is set up correctly:
+
+The script will run automatically when you log in
+The virtual environment will be activated
+The AWOS application will start
+To test without rebooting:
+
+Log out
+Log back in The application should start automatically.
+If you need to modify the startup behavior, edit the awos.desktop file.
