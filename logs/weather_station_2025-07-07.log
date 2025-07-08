@@ -1,0 +1,18 @@
+2025-07-07 09:01:39,763 - INFO - Weather Station System Initialized
+2025-07-07 09:01:40,102 - ERROR - Failed to connect to Modbus
+2025-07-07 09:01:40,103 - ERROR - Modbus connection failed
+2025-07-07 09:01:40,103 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:41,104 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:42,104 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:43,104 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:44,104 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:45,104 - ERROR - Modbus connection failed
+2025-07-07 09:01:45,105 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:46,108 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:47,108 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:48,109 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:49,109 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:50,108 - ERROR - Modbus connection failed
+2025-07-07 09:01:50,109 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:51,112 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-07 09:01:52,023 - INFO - Shutting down weather station system

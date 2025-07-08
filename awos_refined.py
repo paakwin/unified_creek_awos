@@ -27,7 +27,9 @@ warnings.filterwarnings("ignore", category=Image.DecompressionBombWarning)
 sys.path.append(os.path.join(os.path.dirname(__file__), 'awos_assit_code'))
 
 class WeatherStationSystem:
-    def __init__(self, root):
+    # --- Initialization and Configuration ---
+    def __init__(self, root: tk.Tk) -> None:
+        """Initialize the WeatherStationSystem, set up GUI, logging, config, sensors, and start threads."""
         self.root = root
         self.root.title("Weather Station Dashboard")
         self.root.after(1000, self._keep_focus)  # Add periodic focus check
@@ -55,13 +57,13 @@ class WeatherStationSystem:
         # Schedule periodic log rotation check
         self.root.after(3600000, self.check_log_rotation)  # Check every hour
 
-    def _keep_focus(self):
-        """Periodically bring window to front to fight popups"""
+    def _keep_focus(self) -> None:
+        """Periodically bring the window to the front to maintain focus and prevent popups."""
         self.root.lift()
         self.root.after(1000, self._keep_focus)  # Recheck every 1 second
 
-    def load_config(self):
-        """Load configuration from file or set defaults"""
+    def load_config(self) -> None:
+        """Load configuration from INI file if available, otherwise use default settings."""
         self.config = {
             'modbus': {
                 'port': '/dev/ttyUSB0',
@@ -118,8 +120,8 @@ class WeatherStationSystem:
         except Exception as e:
             self.log(f"Config load error: {e}. Using defaults.", level=logging.WARNING)
 
-    def setup_logging(self):
-        """Configure logging system with daily rotation and 7-day retention"""
+    def setup_logging(self) -> None:
+        """Set up logging with daily rotation, 7-day retention, and optional console output."""
         try:
             # Create logs directory if it doesn't exist
             logs_dir = "logs"
@@ -156,8 +158,8 @@ class WeatherStationSystem:
             print(f"Error setting up logging: {e}")
             raise
 
-    def cleanup_old_logs(self, logs_dir):
-        """Remove log files older than 7 days"""
+    def cleanup_old_logs(self, logs_dir: str) -> None:
+        """Remove log files older than 7 days from the logs directory."""
         try:
             # Get current date
             current_date = datetime.now().date()
@@ -186,8 +188,8 @@ class WeatherStationSystem:
         except Exception as e:
             print(f"Error cleaning up old logs: {e}")
 
-    def check_and_rotate_logs(self):
-        """Check if we need to create a new log file for a new day"""
+    def check_and_rotate_logs(self) -> None:
+        """Rotate log files if the date has changed and clean up old logs."""
         try:
             current_date = datetime.now().strftime('%Y-%m-%d')
             current_log_file = os.path.join("logs", f"weather_station_{current_date}.log")
@@ -215,12 +217,12 @@ class WeatherStationSystem:
         except Exception as e:
             print(f"Error rotating logs: {e}")
 
-    def log(self, message, level=logging.INFO):
-        """Log message with timestamp"""
+    def log(self, message: str, level: int = logging.INFO) -> None:
+        """Log a message with a specified logging level."""
         self.logger.log(level, message)
 
-    def init_data_structures(self):
-        """Initialize data storage and queues"""
+    def init_data_structures(self) -> None:
+        """Initialize sensor data storage, queues, and create CSV directory if needed."""
         self.sensor_data = {
             'temperature': None,
             'humidity': None,
@@ -244,8 +246,8 @@ class WeatherStationSystem:
         if not os.path.exists(self.csv_dir):
             os.makedirs(self.csv_dir)
 
-    def cleanup_old_csv(self):
-        """Remove CSV files older than 7 days"""
+    def cleanup_old_csv(self) -> None:
+        """Remove weather data CSV files older than 7 days from the CSV directory."""
         try:
             current_date = datetime.now().date()
             
@@ -268,8 +270,9 @@ class WeatherStationSystem:
         except Exception as e:
             self.log(f"Error cleaning up old CSV files: {e}", level=logging.ERROR)
 
-    def setup_gui(self):
-        """Initialize the graphical user interface"""
+    # --- GUI Setup and Display ---
+    def setup_gui(self) -> None:
+        """Set up the main GUI window, background image, and display widgets."""
         self.root.attributes('-fullscreen', True)
         
         # Get screen dimensions
@@ -320,8 +323,8 @@ class WeatherStationSystem:
         self.mapping_mode = False
         self.coordinate_text = None
 
-    def create_display_widgets(self):
-        """Create all GUI display widgets"""
+    def create_display_widgets(self) -> None:
+        """Create and place all display widgets on the background canvas."""
         self.widget_configs = {
             'temperature_value': {
                 'size': 100, 'color': '#FFFFFF', 'position': (350, 250), 'anchor': 'center'  # Changed from 'nw'
@@ -393,8 +396,9 @@ class WeatherStationSystem:
                 anchor=config['anchor']
             ))
 
-    def init_modbus(self):
-        """Initialize Modbus client connection"""
+    # --- Modbus and Sensor Configuration ---
+    def init_modbus(self) -> None:
+        """Initialize the Modbus serial client connection for sensor communication."""
         self.modbus_client = ModbusSerialClient(
             port=self.config['modbus']['port'],
             baudrate=self.config['modbus']['baudrate'],
@@ -407,53 +411,8 @@ class WeatherStationSystem:
             self.log("Modbus connection failed in init_modbus", level=logging.ERROR)
 
 
-    # def init_sensor_config(self):
-    #     """Initialize sensor parsing configurations"""
-    #     self.sensor_configs = {
-    #         'temperature': {
-    #             'parser': lambda data: data.get('temperature'),
-    #             'display_format': lambda v: f"{v:.1f}",  # Removed °C
-    #             'widget': 'temperature_value'
-    #         },
-    #         'humidity': {
-    #             'parser': lambda data: data.get('humidity'),
-    #             'display_format': lambda v: f"{v:.1f}%",
-    #             'widget': 'humidity_value'
-    #         },
-    #         'pressure': {
-    #             'parser': lambda data: data.get('pressure'),
-    #             'display_format': lambda v: f"{v:.1f}",
-    #             'widget': 'pressure_value'
-    #         },
-    #         'wind_speed': {
-    #             'parser': lambda data: data.get('wind_speed', 0.0) * 3.6,  # Convert to km/h, default to 0.0
-    #             'display_format': lambda v: f"{v:.1f}",
-    #             'widget': 'wind_speed_value'
-    #         },
-    #         'wind_direction': {
-    #             'parser': lambda data: data.get('wind_dir_degrees'),
-    #             'display_format': lambda v: f"{v}°",
-    #             'widget': 'wind_direction_value'
-    #         },
-    #         'rain': {
-    #             'parser': lambda data: self.process_rainfall(data.get('rainfall')),
-    #             'display_format': lambda v: f"{v:.1f}",
-    #             'widget': 'rain_value'
-    #         },
-    #     'uv': {
-    #         'parser': lambda data: data.get('uv_index'),
-    #         'display_format': lambda v: f"{v:.2f}" if v is not None else "--",
-    #         'widget': 'uv_value'
-    #     },
-    #     'aqi': {
-    #         'parser': lambda data: self.calculate_aqi(data.get('pm2_5')),
-    #         'display_format': lambda v: f"{v:.0f}" if v is not None else "--",
-    #         'widget': 'aqi_value'
-    #     }
-    #     }
-
-    def init_sensor_config(self):
-        """Initialize sensor parsing configurations"""
+    def init_sensor_config(self) -> None:
+        """Set up sensor parsing and display formatting configurations."""
         self.sensor_configs = {
             'temperature': {
                 'parser': lambda data: data.get('temperature'),
@@ -497,9 +456,9 @@ class WeatherStationSystem:
             }
         }
 
-    
-    def store_daily_rainfall(self, total):
-        """Store the daily rainfall total into a CSV file."""
+    # --- Rainfall and AQI Processing ---
+    def store_daily_rainfall(self, total: float) -> None:
+        """Store the total daily rainfall in a CSV file in the rainfall_data directory."""
         try:
             os.makedirs("rainfall_data", exist_ok=True)
             file_path = os.path.join("rainfall_data", "daily_rainfall_totals.csv")
@@ -513,25 +472,8 @@ class WeatherStationSystem:
         except Exception as e:
             self.log(f"Error storing daily rainfall: {e}", level=logging.ERROR)
 
-
-    # def process_rainfall(self, current_rain):
-    #     """Process rainfall data with reset logic"""
-    #     if current_rain is None:
-    #         return None
-            
-    #     if abs(current_rain - self.last_rain_value) < self.rain_reset_threshold:
-    #         self.no_rain_counter += 1
-    #         if self.no_rain_counter >= self.rain_reset_time:
-    #             current_rain = 0
-    #             self.no_rain_counter = 0
-    #     else:
-    #         self.no_rain_counter = 0
-            
-    #     self.last_rain_value = current_rain
-    #     return current_rain
-
-    def process_rainfall(self, current_rain):
-        """Accumulate rainfall throughout the day and reset at midnight.
+    def process_rainfall(self, current_rain: float) -> float | None:
+        """Accumulate rainfall for the current day, reset at midnight, and handle sensor resets.
 
         Args:
             current_rain (float): Current cumulative rainfall reading from the sensor (mm)
@@ -569,24 +511,8 @@ class WeatherStationSystem:
 
 
 
-    # def calculate_aqi(self, pm2_5):
-    #     """Calculate AQI from PM2.5 reading"""
-    #     if pm2_5 is None:
-    #         return None
-    #     if pm2_5 <= 12.0:
-    #         return (pm2_5 / 12.0) * 50
-    #     elif pm2_5 <= 35.4:
-    #         return ((pm2_5 - 12.1) / (35.4 - 12.1)) * (100 - 51) + 51
-    #     elif pm2_5 <= 55.4:
-    #         return ((pm2_5 - 35.5) / (55.4 - 35.5)) * (150 - 101) + 101
-    #     elif pm2_5 <= 150.4:
-    #         return ((pm2_5 - 55.5) / (150.4 - 55.5)) * (200 - 151) + 151
-    #     elif pm2_5 <= 250.4:
-    #         return ((pm2_5 - 150.5) / (250.4 - 150.5)) * (300 - 201) + 201
-    #     else:
-    #         return ((pm2_5 - 250.5) / (500.4 - 250.5)) * (500 - 301) + 301
-    def calculate_aqi(self, pm2_5):
-        """Calculate AQI from PM2.5 reading"""
+    def calculate_aqi(self, pm2_5: float | None) -> float | None:
+        """Calculate the Air Quality Index (AQI) from a PM2.5 value."""
         if pm2_5 is None:
             return None
         try:
@@ -606,16 +532,17 @@ class WeatherStationSystem:
         except (TypeError, ValueError):
             return None
 
-    def start_threads(self):
-        """Start background threads"""
+    # --- Threading and Sensor Reading ---
+    def start_threads(self) -> None:
+        """Start background threads for sensor reading and CSV writing."""
         self.running = True
         self.sensor_thread = threading.Thread(target=self.sensor_reader_loop, daemon=True)
         self.csv_thread = threading.Thread(target=self.csv_writer_loop, daemon=True)
         self.sensor_thread.start()
         self.csv_thread.start()
 
-    def sensor_reader_loop(self):
-        """Main loop for reading sensor data"""
+    def sensor_reader_loop(self) -> None:
+        """Continuously read sensor data, update shared data, and queue data for CSV writing."""
         last_csv_time = time.time()
         
         while self.running:
@@ -661,8 +588,8 @@ class WeatherStationSystem:
                 self.log(f"Sensor read error: {e}", level=logging.ERROR)
                 time.sleep(1)
 
-    def log_sensor_data(self, sensor_name, data):
-        """Log sensor data in appropriate format"""
+    def log_sensor_data(self, sensor_name: str, data: dict) -> None:
+        """Log formatted sensor data for debugging and monitoring."""
         if sensor_name == 'environment':
             self.log(f"Env: {data['temperature']:.1f}°C, {data['humidity']:.1f}%, {data['pressure']:.1f}hPa")
         elif sensor_name == 'uv':
@@ -676,29 +603,9 @@ class WeatherStationSystem:
         elif sensor_name == 'rainfall':
             self.log(f"Raw Rainfall Reading: {data['rainfall']:.1f} mm")
 
-    # def read_environment_sensor(self):
-    #     """Read temperature, humidity, and pressure"""
-    #     try:
-    #         result = self.modbus_client.read_holding_registers(
-    #             address=0x0000,
-    #             count=3,
-    #             slave=self.config['sensors']['environment']
-    #         )
-            
-    #         if result.isError():
-    #             return None
-                
-    #         return {
-    #             'temperature': result.registers[0] / 10.0,
-    #             'humidity': result.registers[1] / 10.0,
-    #             'pressure': result.registers[2] / 10.0
-    #         }
-    #     except Exception as e:
-    #         self.log(f"Environment sensor error: {e}", level=logging.ERROR)
-    #         return None
-
-    def read_environment_sensor(self):
-        """Read temperature, humidity, and pressure"""
+    # --- Sensor Reading Methods ---
+    def read_environment_sensor(self) -> dict:
+        """Read temperature, humidity, and pressure from the environment sensor via Modbus."""
         try:
             result = self.modbus_client.read_holding_registers(
                 address=0x0000,
@@ -726,8 +633,8 @@ class WeatherStationSystem:
                 'pressure': 0.0
             }
 
-    def read_uv_sensor(self):
-        """Read UV index"""
+    def read_uv_sensor(self) -> dict:
+        """Read the UV index from the UV sensor via Modbus."""
         try:
             result = self.modbus_client.read_holding_registers(
                 address=0x0000,
@@ -743,50 +650,8 @@ class WeatherStationSystem:
             self.log(f"UV sensor error: {e}", level=logging.ERROR)
             return {'uv_index': 0.0}  # Return 0.0 instead of None
 
-    # def read_aqi_sensor(self):
-    #     """Read AQI data from CSV file"""
-    #     try:
-    #         # Get current timestamp in local time (tz-naive)
-    #         current_time = datetime.now()
-            
-    #         # Read the CSV file
-    #         csv_path = os.path.join(os.path.dirname(__file__), 'aqi', 'karachi_aqi_data_with_pst.csv')
-            
-    #         if not os.path.exists(csv_path):
-    #             self.log(f"AQI data file not found: {csv_path}", level=logging.ERROR)
-    #             return None
-                
-    #         try:
-    #             df = pd.read_csv(csv_path)
-                
-    #             # Convert date column to datetime and ensure it's tz-naive
-    #             df['date'] = pd.to_datetime(df['date']).dt.tz_localize(None)
-                
-    #             # Get the closest timestamp row
-    #             closest_time_row = df.iloc[(df['date'] - current_time).abs().argsort()[0]]
-                
-    #             data = {
-    #                 'co2': float(closest_time_row['carbon_dioxide']),
-    #                 'pm2_5': float(closest_time_row['pm2_5']),
-    #                 'pm10': float(closest_time_row['pm10']),
-    #                 'carbon_monoxide': float(closest_time_row['carbon_monoxide']),
-    #                 'nitrogen_dioxide': float(closest_time_row['nitrogen_dioxide']),
-    #                 'sulphur_dioxide': float(closest_time_row['sulphur_dioxide']),
-    #                 'ozone': float(closest_time_row['ozone'])
-    #             }
-                
-    #             return data
-                
-    #         except pd.errors.EmptyDataError:
-    #             self.log("AQI data file is empty", level=logging.ERROR)
-    #             return None
-                
-    #     except Exception as e:
-    #         self.log(f"Error reading AQI data from CSV: {e}", level=logging.ERROR)
-    #         return None
-
-    def read_aqi_sensor(self):
-        """Read AQI data from CSV file"""
+    def read_aqi_sensor(self) -> dict:
+        """Read AQI-related data from a CSV file and return the closest timestamp row."""
         try:
             # Get current timestamp in local time (tz-naive)
             current_time = datetime.now()
@@ -827,9 +692,8 @@ class WeatherStationSystem:
             self.log(f"Error reading AQI data from CSV: {e}", level=logging.ERROR)
             return {'pm2_5': 0.0}  # Return default value instead of None
 
-
-    def read_wind_speed(self):
-        """Read wind speed in m/s"""
+    def read_wind_speed(self) -> dict:
+        """Read wind speed in m/s from the wind speed sensor via Modbus."""
         try:
             result = self.modbus_client.read_holding_registers(
                 address=0x0000,
@@ -845,8 +709,8 @@ class WeatherStationSystem:
             self.log(f"Wind speed sensor error: {e}", level=logging.ERROR)
             return {'wind_speed': 0.0}  # Return 0.0 instead of None
 
-    def read_wind_direction(self):
-        """Read wind direction in degrees and cardinal direction"""
+    def read_wind_direction(self) -> dict | None:
+        """Read wind direction in degrees and cardinal direction from the wind direction sensor."""
         try:
             result = self.modbus_client.read_holding_registers(
                 address=0x0000,
@@ -872,8 +736,8 @@ class WeatherStationSystem:
             self.log(f"Wind direction sensor error: {e}", level=logging.ERROR)
             return None
 
-    def _degrees_to_cardinal(self, degrees):
-        """Convert degrees to cardinal direction (16-point compass)"""
+    def _degrees_to_cardinal(self, degrees: float | None) -> str:
+        """Convert wind direction in degrees to a 16-point cardinal direction string."""
         if degrees is None or not (0 <= degrees <= 360):
             return "Unknown"
             
@@ -884,8 +748,8 @@ class WeatherStationSystem:
         index = round(degrees / (360. / len(directions))) % len(directions)
         return directions[index]
 
-    def read_rainfall(self):
-        """Read rainfall in mm"""
+    def read_rainfall(self) -> dict | None:
+        """Read cumulative rainfall in mm from the rainfall sensor via Modbus."""
         try:
             result = self.modbus_client.read_holding_registers(
                 address=0,
@@ -901,8 +765,9 @@ class WeatherStationSystem:
             self.log(f"Rainfall sensor error: {e}", level=logging.ERROR)
             return None
 
-    def csv_writer_loop(self):
-        """Background thread for writing CSV data"""
+    # --- CSV Writing ---
+    def csv_writer_loop(self) -> None:
+        """Write queued sensor data to a daily CSV file and clean up old CSV files."""
         while self.running:
             try:
                 data = self.data_queue.get(timeout=1)
@@ -952,8 +817,9 @@ class WeatherStationSystem:
             except Exception as e:
                 self.log(f"CSV write error: {e}", level=logging.ERROR)
 
-    def get_datetime_info(self):
-        """Get current date and time information"""
+    # --- Display and State Updates ---
+    def get_datetime_info(self) -> dict:
+        """Return current day, date, and time as formatted strings for display."""
         now = datetime.now()
         return {
             'day': now.strftime('%A').upper(),  # Convert weekday to uppercase
@@ -961,55 +827,8 @@ class WeatherStationSystem:
             'time': now.strftime('%H:%M')
         }
 
-    # def get_aqi_state(self, aqi):
-    #     """Determine AQI state and color"""
-    #     if aqi is None:
-    #         return "N/A", "#FFFFFF"
-    #     elif 0 <= aqi <= 50:
-    #         return "GOOD", "#00E400"
-    #     elif 51 <= aqi <= 100:
-    #         return "MODERATE", "#FFFF00"
-    #     elif 101 <= aqi <= 150:
-    #         return "UNHEALTHY", "#FF7E00"
-    #     elif 151 <= aqi <= 200:
-    #         return "UNHEALTHY", "#FF0000"
-    #     elif 201 <= aqi <= 300:
-    #         return "VERY UNHEALTHY", "#8F3F97"
-    #     else:
-    #         return "HAZARDOUS", "#7E0023"
-
-    # def get_uv_state(self, uv):
-    #     """Determine UV state and color"""
-    #     if uv is None:
-    #         return "N/A", "#FFFFFF"
-    #     elif 0 <= uv <= 2:
-    #         return "LOW", "#00E400"
-    #     elif 3 <= uv <= 5:
-    #         return "MODERATE", "#FFFF00"
-    #     elif 6 <= uv <= 7:
-    #         return "HIGH", "#FF7E00"
-    #     elif 8 <= uv <= 10:
-    #         return "VERY HIGH", "#FF0000"
-    #     else:
-    #         return "EXTREME", "#8F3F97"
-
-    # def get_humidity_state(self, humidity):
-    #     """Determine humidity state and color"""
-    #     if humidity is None:
-    #         return "N/A", "#FFFFFF"
-    #     elif 0 <= humidity <= 30:
-    #         return "LOW", "#3EC1EC"
-    #     elif 31 <= humidity <= 50:
-    #         return "NORMAL", "#00E400"
-    #     elif 51 <= humidity <= 60:
-    #         return "SLIGHTLY HIGH", "#FFFF00"
-    #     elif 61 <= humidity <= 70:
-    #         return "HIGH", "#FF7E00"
-    #     else:
-    #         return "VERY HIGH", "#FF0000"
-
-    def get_aqi_state(self, aqi):
-        """Determine AQI state and color"""
+    def get_aqi_state(self, aqi: float | None) -> tuple[str, str]:
+        """Determine AQI state and color based on AQI value."""
         if aqi is None:
             return "N/A", "#FFFFFF"  # White
         aqi_float = float(aqi)
@@ -1026,8 +845,8 @@ class WeatherStationSystem:
         else:
             return "HAZARDOUS", "#7E0023"  # Dark Red
 
-    def get_uv_state(self, uv):
-        """Determine UV state and color"""
+    def get_uv_state(self, uv: float | None) -> tuple[str, str]:
+        """Determine UV state and color based on UV index value."""
         if uv is None:
             return "N/A", "#FFFFFF"  # White
         uv_float = float(uv)
@@ -1042,8 +861,8 @@ class WeatherStationSystem:
         else:
             return "EXTREME", "#8F3F97"  # Purple
 
-    def get_humidity_state(self, humidity):
-        """Determine humidity state and color"""
+    def get_humidity_state(self, humidity: float | None) -> tuple[str, str]:
+        """Determine humidity state and color based on humidity value."""
         if humidity is None:
             return "N/A", "#FFFFFF"  # White
         humidity_float = float(humidity)
@@ -1058,8 +877,8 @@ class WeatherStationSystem:
         else:
             return "VERY HIGH", "#FF0000"  # Red
 
-    def update_static_elements(self):
-        """Update date, time and sun information"""
+    def update_static_elements(self) -> None:
+        """Update static display elements such as date, time, sunrise, and sunset."""
         datetime_info = self.get_datetime_info()
         sun_info = self.get_sun_info()
 
@@ -1072,29 +891,8 @@ class WeatherStationSystem:
 
         self.root.after(60000, self.update_static_elements)
 
-    # def update_display(self):
-    #     """Update all display elements with current sensor data"""
-    #     try:
-    #         # Update sensor values
-    #         self.log(f"Current sensor data: {self.sensor_data}")
-    #         for sensor_name, config in self.sensor_configs.items():
-    #             value = config['parser'](self.sensor_data)
-    #             if value is not None:
-    #                 widget = getattr(self, config['widget'])
-    #                 formatted_value = config['display_format'](value)
-    #                 self.bg_canvas.itemconfig(widget, text=formatted_value)
-            
-    #         # Update states with colors
-    #         self.update_state_displays()
-            
-    #     except Exception as e:
-    #         self.log(f"Display update error: {e}", level=logging.ERROR)
-        
-    #     # Schedule next update
-    #     self.root.after(self.config['gui']['update_interval'], self.update_display)
-    
-    def update_display(self):
-        """Update all display elements with current sensor data"""
+    def update_display(self) -> None:
+        """Update all sensor display widgets with the latest sensor data."""
         try:
             # Update sensor values
             for sensor_name, config in self.sensor_configs.items():
@@ -1116,8 +914,8 @@ class WeatherStationSystem:
         # Schedule next update
         self.root.after(self.config['gui']['update_interval'], self.update_display)
 
-    def update_state_displays(self):
-        """Update state displays with appropriate colors"""
+    def update_state_displays(self) -> None:
+        """Update state widgets (humidity, UV, AQI) with appropriate text and color."""
         try:
             # Humidity state
             humidity = self.sensor_data.get('humidity')
@@ -1151,8 +949,9 @@ class WeatherStationSystem:
         except Exception as e:
             self.log(f"Error updating state displays: {e}", level=logging.ERROR)
 
-    def toggle_mapping_mode(self, event=None):
-        """Toggle coordinate mapping mode"""
+    # --- GUI Utility Methods ---
+    def toggle_mapping_mode(self, event=None) -> None:
+        """Toggle coordinate mapping mode for GUI widget placement."""
         self.mapping_mode = not self.mapping_mode
         if self.mapping_mode:
             self.bg_canvas.bind('<Button-1>', self.show_coordinates)
@@ -1169,8 +968,8 @@ class WeatherStationSystem:
             if self.coordinate_text:
                 self.bg_canvas.delete(self.coordinate_text)
 
-    def show_coordinates(self, event):
-        """Display coordinates where user clicked"""
+    def show_coordinates(self, event) -> None:
+        """Display the coordinates of a mouse click on the canvas for mapping mode."""
         x, y = event.x, event.y
         print(f"Coordinates: x={x}, y={y}")
         
@@ -1187,8 +986,9 @@ class WeatherStationSystem:
         
         self.root.after(2000, lambda: self.bg_canvas.delete(marker, text))
 
-    def shutdown(self):
-        """Clean shutdown of the system"""
+    # --- Shutdown and Misc ---
+    def shutdown(self) -> None:
+        """Perform a clean shutdown of the system, stopping threads and closing Modbus."""
         self.log("Shutting down weather station system")
         self.running = False
         
@@ -1202,8 +1002,8 @@ class WeatherStationSystem:
         
         self.root.quit()
 
-    def get_sun_info(self):
-        """Get sunrise and sunset times for Karachi"""
+    def get_sun_info(self) -> dict:
+        """Get sunrise and sunset times for the current date from the sun data CSV file."""
         try:
             # Get current date in MM-DD format
             current_date = datetime.now().strftime('%m-%d')
@@ -1240,14 +1040,14 @@ class WeatherStationSystem:
                 'sunset': '18:00'
             }
 
-    def force_update(self):
-        """Force immediate update of all display elements"""
+    def force_update(self) -> None:
+        """Force an immediate update of all display elements and log the refresh."""
         self.update_display()
         self.update_static_elements()
         self.log("Display manually refreshed", level=logging.INFO)
 
-    def check_log_rotation(self):
-        """Periodic check for log rotation"""
+    def check_log_rotation(self) -> None:
+        """Periodically check and rotate log files if needed."""
         self.check_and_rotate_logs()
         # Schedule next check
         self.root.after(3600000, self.check_log_rotation)  # Check every hour

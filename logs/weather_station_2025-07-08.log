@@ -1,0 +1,283 @@
+2025-07-08 10:35:44,982 - INFO - Weather Station System Initialized
+2025-07-08 10:35:45,322 - ERROR - Failed to connect to Modbus
+2025-07-08 10:35:45,323 - ERROR - Modbus connection failed
+2025-07-08 10:35:45,323 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:46,324 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:47,325 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:48,325 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:49,325 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:50,324 - ERROR - Modbus connection failed
+2025-07-08 10:35:50,325 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:51,327 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:52,328 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:53,328 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:54,328 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:55,328 - ERROR - Modbus connection failed
+2025-07-08 10:35:55,328 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:56,332 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:57,332 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:58,332 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:35:59,332 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:13,644 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:14,433 - ERROR - Modbus connection failed
+2025-07-08 10:43:14,644 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:15,645 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:16,645 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:17,645 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:18,645 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:19,437 - ERROR - Modbus connection failed
+2025-07-08 10:43:19,645 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:20,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:21,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:22,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:23,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:24,437 - ERROR - Modbus connection failed
+2025-07-08 10:43:24,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:25,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:26,646 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:27,647 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:28,784 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:29,437 - ERROR - Modbus connection failed
+2025-07-08 10:43:29,784 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:30,784 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:31,784 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:32,784 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:33,785 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:34,438 - ERROR - Modbus connection failed
+2025-07-08 10:43:35,011 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:36,012 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:37,012 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:38,012 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:39,012 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:39,488 - ERROR - Modbus connection failed
+2025-07-08 10:43:40,013 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:41,013 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:42,013 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:43,013 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:44,013 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:44,489 - ERROR - Modbus connection failed
+2025-07-08 10:43:45,013 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:46,014 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:47,014 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:48,014 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:49,014 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:49,489 - ERROR - Modbus connection failed
+2025-07-08 10:43:50,015 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:51,015 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:52,015 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:53,015 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:54,015 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:54,495 - ERROR - Modbus connection failed
+2025-07-08 10:43:55,016 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:56,016 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:57,016 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:58,016 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:59,016 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:43:59,500 - ERROR - Modbus connection failed
+2025-07-08 10:44:00,016 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:01,017 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:02,017 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:03,017 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:04,017 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:04,504 - ERROR - Modbus connection failed
+2025-07-08 10:44:05,017 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:06,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:07,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:08,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:09,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:09,510 - ERROR - Modbus connection failed
+2025-07-08 10:44:10,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:11,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:12,018 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:13,019 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:14,019 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:14,516 - ERROR - Modbus connection failed
+2025-07-08 10:44:15,019 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:16,019 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:17,019 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:18,020 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:19,020 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:19,520 - ERROR - Modbus connection failed
+2025-07-08 10:44:20,020 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:21,020 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:22,020 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:23,021 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:24,021 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:24,525 - ERROR - Modbus connection failed
+2025-07-08 10:44:25,021 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:26,021 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:27,021 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:28,022 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:29,022 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:29,531 - ERROR - Modbus connection failed
+2025-07-08 10:44:30,022 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:31,022 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:32,022 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:33,023 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:34,023 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:34,537 - ERROR - Modbus connection failed
+2025-07-08 10:44:35,023 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:36,023 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:37,023 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:38,024 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:39,024 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:39,542 - ERROR - Modbus connection failed
+2025-07-08 10:44:40,024 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:41,024 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:42,024 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:43,024 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:44,025 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:44,548 - ERROR - Modbus connection failed
+2025-07-08 10:44:45,025 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:46,025 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:47,025 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:48,025 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:49,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:49,553 - ERROR - Modbus connection failed
+2025-07-08 10:44:50,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:51,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:52,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:53,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:54,027 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:54,560 - ERROR - Modbus connection failed
+2025-07-08 10:44:55,027 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:56,027 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:57,027 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:58,027 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:59,027 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:44:59,568 - ERROR - Modbus connection failed
+2025-07-08 10:45:00,028 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:01,028 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:02,028 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:03,028 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:04,028 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:04,576 - ERROR - Modbus connection failed
+2025-07-08 10:45:05,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:06,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:07,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:08,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:09,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:09,580 - ERROR - Modbus connection failed
+2025-07-08 10:45:10,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:11,029 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:12,030 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:13,030 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:14,030 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:14,587 - ERROR - Modbus connection failed
+2025-07-08 10:45:15,030 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:16,030 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:17,031 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:18,031 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:19,031 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:19,592 - ERROR - Modbus connection failed
+2025-07-08 10:45:20,031 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:21,031 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:22,032 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:23,032 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:24,032 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:24,599 - ERROR - Modbus connection failed
+2025-07-08 10:45:25,032 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:26,032 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:27,033 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:28,033 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:29,033 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:29,604 - ERROR - Modbus connection failed
+2025-07-08 10:45:30,033 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:31,033 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:32,033 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:33,034 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:34,034 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:34,609 - ERROR - Modbus connection failed
+2025-07-08 10:45:35,034 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:36,034 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:37,034 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:38,035 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:39,035 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:39,613 - ERROR - Modbus connection failed
+2025-07-08 10:45:40,035 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:41,035 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:42,035 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:43,035 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:44,036 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:44,619 - ERROR - Modbus connection failed
+2025-07-08 10:45:45,036 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:46,036 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:47,036 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:48,036 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:49,036 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:49,624 - ERROR - Modbus connection failed
+2025-07-08 10:45:50,037 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:51,037 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:52,037 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:53,037 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:54,037 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:54,630 - ERROR - Modbus connection failed
+2025-07-08 10:45:55,037 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:56,038 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:57,038 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:58,038 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:59,038 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:45:59,636 - ERROR - Modbus connection failed
+2025-07-08 10:46:00,038 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:01,039 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:02,039 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:03,039 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:04,039 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:04,642 - ERROR - Modbus connection failed
+2025-07-08 10:46:05,039 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:06,040 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:07,040 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:08,040 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:09,040 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:09,649 - ERROR - Modbus connection failed
+2025-07-08 10:46:10,040 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:11,040 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:12,041 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:13,041 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:14,041 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:14,654 - ERROR - Modbus connection failed
+2025-07-08 10:46:15,041 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:16,042 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:17,042 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:18,042 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:19,042 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:19,660 - ERROR - Modbus connection failed
+2025-07-08 10:46:20,042 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:21,042 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:22,043 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:23,043 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:24,043 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:46:24,266 - INFO - Shutting down weather station system
+2025-07-08 10:47:09,662 - INFO - Weather Station System Initialized
+2025-07-08 10:47:10,025 - ERROR - Failed to connect to Modbus
+2025-07-08 10:47:10,026 - ERROR - Modbus connection failed
+2025-07-08 10:47:10,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:47:11,026 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 10:47:11,622 - INFO - Shutting down weather station system
+2025-07-08 14:59:05,514 - INFO - Weather Station System Initialized
+2025-07-08 14:59:06,668 - ERROR - Failed to connect to Modbus
+2025-07-08 14:59:06,669 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:06,670 - ERROR - Modbus connection failed
+2025-07-08 14:59:08,159 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:09,844 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:10,844 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:11,670 - ERROR - Modbus connection failed
+2025-07-08 14:59:11,845 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:12,845 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:13,845 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:14,846 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:15,846 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 14:59:16,520 - INFO - Shutting down weather station system
+2025-07-08 16:17:13,175 - INFO - Weather Station System Initialized
+2025-07-08 16:17:13,522 - ERROR - Failed to connect to Modbus
+2025-07-08 16:17:13,523 - ERROR - Modbus connection failed
+2025-07-08 16:17:13,523 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:14,534 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:15,534 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:16,535 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:17,535 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:18,523 - ERROR - Modbus connection failed
+2025-07-08 16:17:18,535 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:19,535 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:20,535 - ERROR - Display update error: '<=' not supported between instances of 'NoneType' and 'float'
+2025-07-08 16:17:20,692 - INFO - Shutting down weather station system
