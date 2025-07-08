@@ -241,6 +241,11 @@ class WeatherStationSystem:
         self.rain_reset_threshold = self.config['gui']['rain_reset_threshold']
         self.rain_reset_time = self.config['gui']['rain_reset_time']
 
+        # Rainfall tracking variables
+        self.daily_rain_total = 0
+        self.last_rain_value = 0
+        self.last_rain_reset_day = datetime.now().day
+
         # Create csv directory if it doesn't exist
         self.csv_dir = "csv_data"
         if not os.path.exists(self.csv_dir):
