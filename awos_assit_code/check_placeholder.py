@@ -2,7 +2,6 @@
 import csv
 import tkinter as tk
 from tkinter import ttk
-import traceback
 import warnings
 from PIL import Image, ImageTk
 from pymodbus.client import ModbusSerialClient
@@ -20,8 +19,6 @@ from logging.handlers import RotatingFileHandler
 import sys
 import pandas as pd
 from typing import Dict, Tuple, Optional, Union
-import random
-from typing import Dict
 
 # Disable DecompressionBombWarning
 Image.MAX_IMAGE_PIXELS = None
@@ -35,26 +32,9 @@ class WeatherStationSystem:
         """Initialize the WeatherStationSystem with dual GUI support."""
         self.root = root
         self.root.title("Weather Station Dashboard")
-        self.setup_logging()  # MUST come first!
-        self.log("Starting initialization...")  # Now safe to use
         
-        # Initialize logger first before any logging calls
         # Add mapping mode initialization
-        self.modbus_lock = threading.Lock()
         self.mapping_mode = False  # Add this line
-        # self.simulation_mode = False
-        # self.log(f"Simulation mode initialized to: {self.simulation_mode}")
-    #     self.simulation_values = {
-    #     'temperature': 25.0,
-    #     'humidity': 50.0,
-    #     'pressure': 1013.0,
-    #     'uv_index': 5.0,
-    #     'wind_speed': 10.0,
-    #     'wind_dir_degrees': 180.0,
-    #     'rainfall': 0.0,
-    #     'pm2_5': 35.0
-    # }
-
         
         # Initialize logger first
         self.logger = logging.getLogger('WeatherStation')
@@ -65,11 +45,11 @@ class WeatherStationSystem:
         try:
             # Initialize system in proper order
             self.load_config()
-            # self.setup_logging()  # Now properly configured logger exists
+            self.setup_logging()  # Now properly configured logger exists
             self.init_data_structures()
-            self.init_sensor_config()
             self.setup_gui()
             self.init_modbus()
+            self.init_sensor_config()
             
             # Start system threads
             self.start_threads()
@@ -84,7 +64,6 @@ class WeatherStationSystem:
             self.root.bind('<F5>', lambda e: self.force_update())
             self.root.bind('<Tab>', lambda e: self.force_gui_switch())
             self.root.bind('<space>', self.toggle_pause_on_current_gui)  # Add this line
-            # self.root.bind('<F11>', self.toggle_simulation_mode)
             
             # Schedule periodic tasks
             self.root.after(1000, self._keep_focus)  # Keep window focused every 1s
@@ -168,64 +147,28 @@ class WeatherStationSystem:
         except Exception as e:
             print(f"Config load error: {e}. Using defaults.")  # Can't use logger yet
 
-    # def setup_logging(self) -> None:
-    #     """Set up logging with daily rotation and retention."""
-    #     try:
-    #         logs_dir = "logs"
-    #         os.makedirs(logs_dir, exist_ok=True)
-    #         current_date = datetime.now().strftime('%Y-%m-%d')
-    #         log_file = os.path.join(logs_dir, f"weather_station_{current_date}.log")
-
-    #         file_handler = logging.FileHandler(log_file)
-    #         file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    #         self.logger.addHandler(file_handler)
-
-    #         if self.config['logging'].get('debug', False):
-    #             console_handler = logging.StreamHandler()
-    #             console_handler.setLevel(logging.DEBUG)
-    #             self.logger.addHandler(console_handler)
-
-    #         self.cleanup_old_logs(logs_dir)
-    #         self.log("Weather Station System Initialized")
-    #     except Exception as e:
-    #         print(f"Error setting up logging: {e}")
-    #         raise
-    
     def setup_logging(self) -> None:
-        """Configure logging system with fallback"""
+        """Set up logging with daily rotation and retention."""
         try:
-            # Create logger
-            self.logger = logging.getLogger('WeatherStation')
-            self.logger.setLevel(logging.INFO)
-            
-            # Clear existing handlers
-            for handler in self.logger.handlers[:]:
-                self.logger.removeHandler(handler)
-                
-            # Create logs directory
-            os.makedirs("logs", exist_ok=True)
-            
-            # File handler
-            log_file = f"logs/weather_station_{datetime.now().strftime('%Y-%m-%d')}.log"
-            file_handler = logging.FileHandler(log_file)
-            file_handler.setFormatter(
-                logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-            )
-            self.logger.addHandler(file_handler)
-            
-        except Exception as e:
-            # Fallback to console logging
-            logging.basicConfig(level=logging.INFO)
-            self.logger = logging.getLogger('WeatherStationFallback')
-            self.logger.error(f"Failed to setup file logging: {e}")
+            logs_dir = "logs"
+            os.makedirs(logs_dir, exist_ok=True)
+            current_date = datetime.now().strftime('%Y-%m-%d')
+            log_file = os.path.join(logs_dir, f"weather_station_{current_date}.log")
 
-    def log(self, message: str, level: int = logging.INFO) -> None:
-        """Safe logging with fallback"""
-        if not hasattr(self, 'logger'):
-            # Ultimate fallback
-            print(f"[FALLBACK] {message}")
-            return
-        self.logger.log(level, message)
+            file_handler = logging.FileHandler(log_file)
+            file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+            self.logger.addHandler(file_handler)
+
+            if self.config['logging'].get('debug', False):
+                console_handler = logging.StreamHandler()
+                console_handler.setLevel(logging.DEBUG)
+                self.logger.addHandler(console_handler)
+
+            self.cleanup_old_logs(logs_dir)
+            self.log("Weather Station System Initialized")
+        except Exception as e:
+            print(f"Error setting up logging: {e}")
+            raise
 
 
     def cleanup_old_logs(self, logs_dir: str) -> None:
@@ -262,9 +205,9 @@ class WeatherStationSystem:
         except Exception as e:
             print(f"Error rotating logs: {e}")
 
-    # def log(self, message: str, level: int = logging.INFO) -> None:
-    #     """Log a message with specified level."""
-    #     self.logger.log(level, message)
+    def log(self, message: str, level: int = logging.INFO) -> None:
+        """Log a message with specified level."""
+        self.logger.log(level, message)
 
     def init_data_structures(self) -> None:
         """Initialize data storage structures."""
@@ -303,53 +246,7 @@ class WeatherStationSystem:
         except Exception as e:
             self.log(f"Error cleaning CSV: {e}", logging.ERROR)
 
-    # def toggle_simulation_mode(self, event=None):
-    #     """Toggle simulation mode on/off with visual feedback."""
-    #     self.simulation_mode = not self.simulation_mode
-    #     status = "ON" if self.simulation_mode else "OFF"
-    #     self.log(f"Simulation mode {status}")
-        
-    #     # Visual feedback
-    #     text = f"SIMULATION MODE {status}"
-    #     color = "#FF0000" if self.simulation_mode else "#00FF00"
-        
-    #     # Remove old indicators if they exist
-    #     for canvas in [self.gui1_canvas, self.gui2_canvas]:
-    #         if hasattr(self, 'sim_indicator'):
-    #             canvas.delete(self.sim_indicator)
-        
-    #     # Create new indicators
-    #     self.sim_indicator = self.gui1_canvas.create_text(
-    #         50, 50, text=text, fill=color, 
-    #         font=('Arial', 20, 'bold'), anchor='nw'
-    #     )
-    #     self.gui2_canvas.create_text(
-    #         50, 50, text=text, fill=color,
-    #         font=('Arial', 20, 'bold'), anchor='nw'
-    #     )
-        
-    #     # Auto-remove after 3 seconds
-    #     self.root.after(3000, lambda: [
-    #         self.gui1_canvas.delete(self.sim_indicator),
-    #         self.gui2_canvas.delete(self.sim_indicator)
-    #     ])
 
-    # def generate_simulation_data(self) -> dict:
-    #     """Generate all simulated sensor data with natural variations."""
-    #     return {
-    #         'temperature': round(self.simulation_values['temperature'] + random.uniform(-1, 1), 1),
-    #         'humidity': round(self.simulation_values['humidity'] + random.uniform(-3, 3), 1),
-    #         'pressure': round(self.simulation_values['pressure'] + random.uniform(-2, 2), 1),
-    #         'uv_index': round(self.simulation_values['uv_index'] + random.uniform(-0.5, 0.5), 2),
-    #         'wind_speed': round(self.simulation_values['wind_speed'] + random.uniform(-2, 2), 1),
-    #         'wind_dir_degrees': int(self.simulation_values['wind_dir_degrees'] + random.uniform(-30, 30)) % 360,
-    #         'rainfall': round(max(0, self.simulation_values['rainfall'] + random.uniform(-0.1, 0.2)), 2),
-    #         'pm2_5': round(self.simulation_values['pm2_5'] + random.uniform(-3, 3), 1),
-    #         'timestamp': datetime.now().isoformat()
-    #     }
-        
-
-        
     def load_background_images(self, width: int, height: int) -> None:
         """Load and resize background images for both GUIs."""
         try:
@@ -414,6 +311,60 @@ class WeatherStationSystem:
         # Create widgets for both GUIs
         self.create_display_widgets()
 
+    def init_sensor_config(self) -> None:
+        """Set up sensor parsing configurations."""
+        self.sensor_configs = {
+            'temperature': {
+                'parser': lambda data: data.get('temperature'),
+                'display_format': lambda v: f"{v:.1f}" if v is not None else "TEMP",
+                'widget': 'temperature_value',
+                # 'size': 100
+            },
+            'humidity': {
+                'parser': lambda data: data.get('humidity'),
+                'display_format': lambda v: f"{v:.1f} %" if v is not None else "HMD",  
+                'widget': 'humidity_value',
+                # 'size': 100
+            },
+            'wind_speed': {
+                'parser': lambda data: data.get('wind_speed', 0.0) * 3.6 if data.get('wind_speed') is not None else None,
+                'display_format': lambda v: f"{v:.1f}" if v is not None else "W/S",
+                'widget': 'wind_speed_value',
+                # 'size': 100
+            },
+            'wind_direction': {
+                'parser': lambda data: data.get('wind_dir_degrees'),
+                'display_format': lambda v: f"{v}°" if v is not None else "W/D",
+                'widget': 'wind_direction_value',
+                # 'size': 80
+            },
+            'pressure': {
+                'parser': lambda data: data.get('pressure'),
+                'display_format': lambda v: f"{v:.1f}" if v is not None else "PS",
+                'widget': 'pressure_value',
+                # 'size': 100
+            },
+            'rain': {
+                'parser': lambda data: self.process_rainfall(data.get('rainfall')),
+                'display_format': lambda v: f"{v:.1f}" if v is not None else "RF",
+                'widget': 'rain_value',
+                # 'size': 80
+            },
+            'uv': {
+                'parser': lambda data: data.get('uv_index'),
+                'display_format': lambda v: f"{v:.2f}" if v is not None else "UV",
+                'widget': 'uv_value',
+                # 'size': 100
+            },
+            'aqi': {
+                'parser': lambda data: self.calculate_aqi(data.get('pm2_5')),
+                'display_format': lambda v: f"{v:.0f}" if v is not None else "AQI",
+                'widget': 'aqi_value',
+                # 'size': 100
+            }
+        }
+
+
     def create_display_widgets(self) -> None:
         """Create and configure all display widgets."""
         self.widget_configs = {
@@ -421,23 +372,23 @@ class WeatherStationSystem:
                 'time': {
                     'size': 80,
                     'color': '#FFFFFF',
-                    'position': (1525, 78),
+                    'position': (1530, 78),
                     'anchor': 'center',
-
+                    'placeholder': 'TIME'
                 },
                 'date': {
                     'size': 80,
                     'color': '#FFFFFF',
                     'position': (330, 78),
                     'anchor': 'center',
-
+                    'placeholder': 'DATE'
                 },
                 'day': {
                     'size': 80,
                     'color': "#FF0000",
                     'position': (980, 78),
                     'anchor': 'center',
-
+                    'placeholder': 'DAY'
                 }
             },
             # GUI-1 specific widgets
@@ -447,42 +398,42 @@ class WeatherStationSystem:
                     'color': "#FF3E00",
                     'position': (550, 420),
                     'anchor': 'center',
-
+                    'placeholder': '32.5'
                 },
                 'humidity': {
                     'size': 180,
                     'color': "#00FF00",
                     'position': (1500, 355),
                     'anchor': 'center',
-
+                    'placeholder': '100%'
                 },
                 'humidity_state_value': {
                     'size': 70,
                     'color': '#00FF00',
                     'position': (1500, 520),  # Position below humidity value
                     'anchor': 'center',
-
+                    'placeholder': 'NORMAL'
                 },
                 'wind_speed': {
                     'size': 180,
                     'color': "#006FFF",
                     'position': (450, 890),
                     'anchor': 'center',
-
+                    'placeholder': '14.5'
                 },
                 'wind_direction': {
                     'size': 100,
                     'color': "#BF00FF",
                     'position': (1690, 890),
                     'anchor': 'center',
-
+                    'placeholder': '326°'
                 },
                 'wind_direction_cardinal': {  # Add this new widget config
                     'size': 180,
                     'color': "#BF00FF",
-                    'position': (1210, 890),
+                    'position': (1230, 890),
                     'anchor': 'center',
-
+                    'placeholder': 'NW'
                 }
             },
             # GUI-2 specific widgets
@@ -492,56 +443,56 @@ class WeatherStationSystem:
                     'color': '#00FF00',
                     'position': (470, 355),
                     'anchor': 'center',
-
+                    'placeholder': '12'
                 },
                 'uv_state_value': {
                     'size': 70,
                     'color': '#00FF00',
                     'position': (480, 520),  # Position below UV value
                     'anchor': 'center',
-
+                    'placeholder': 'HIGH'
                 },
                 'aqi': {
                     'size': 200,
                     'color': "#006FFF",
                     'position': (1430, 355),
                     'anchor': 'center',
-
+                    'placeholder': '256'
                 },
                 'aqi_state_value': {
                     'size': 70,
                     'color': '#006FFF',
                     'position': (1430, 520),  # Position below AQI value
                     'anchor': 'center',
-
+                    'placeholder': 'UNHEALTHY'
                 },
                 'pressure': {
                     'size': 150,
                     'color': '#FFFF00',
                     'position': (335, 900),
                     'anchor': 'center',
-
+                    'placeholder': '1008.2'
                 },
                 'rain': {
                     'size': 150,
                     'color': '#FFFFFF',
                     'position': (1570, 900),
                     'anchor': 'center',
-
+                    'placeholder': '0.0'
                 },
                 'sunrise': {
                     'size': 110,
                     'color': '#FFFF00',
                     'position': (1150, 800),
                     'anchor': 'ne',
-
+                    'placeholder': 'SR'
                 },
                 'sunset': {
                     'size': 110,
                     'color': '#FF3E00',
                     'position': (1150, 920),
                     'anchor': 'ne',
-
+                    'placeholder': 'SS'
                 }
             }
         }
@@ -552,179 +503,49 @@ class WeatherStationSystem:
         # Create common widgets for both GUIs
         self.common_widgets = {}
         for name, config in self.widget_configs['common'].items():
+            # Create for GUI 1
             self.common_widgets[f"{name}_gui1"] = self.create_widget(
-                canvas=self.gui1_canvas,
-                pos=config['position'],
-                size=config['size'],
-                color=config['color'],
-                anchor=config['anchor']
+                self.gui1_canvas,
+                config['position'],
+                config['size'],
+                config['anchor'],
+                config['color'],
+                config['placeholder']
             )
+            # Create for GUI 2
             self.common_widgets[f"{name}_gui2"] = self.create_widget(
-                canvas=self.gui2_canvas,
-                pos=config['position'],
-                size=config['size'],
-                color=config['color'],
-                anchor=config['anchor']
+                self.gui2_canvas,
+                config['position'],
+                config['size'],
+                config['anchor'],
+                config['color'],
+                config['placeholder']
             )
 
-        # GUI-1 widgets (temperature, humidity, etc.)
+        # Create GUI-1 specific widgets
         self.gui1_widgets = {}
         for name, config in self.widget_configs['gui1'].items():
             self.gui1_widgets[name] = self.create_widget(
-                canvas=self.gui1_canvas,
-                pos=config['position'],
-                size=config['size'],
-                color=config['color'],
-                anchor=config['anchor'],
-                sensor_type=name if name in self.sensor_configs else None
+                self.gui1_canvas,
+                config['position'],
+                config['size'],
+                config['anchor'],
+                config['color'],
+                config['placeholder']
             )
 
-        # GUI-2 widgets (UV, AQI, etc.)
+        # Create GUI-2 specific widgets
         self.gui2_widgets = {}
         for name, config in self.widget_configs['gui2'].items():
             self.gui2_widgets[name] = self.create_widget(
-                canvas=self.gui2_canvas,
-                pos=config['position'],
-                size=config['size'],
-                color=config['color'],
-                anchor=config['anchor'],
-                sensor_type=name if name in self.sensor_configs else None
+                self.gui2_canvas,
+                config['position'],
+                config['size'],
+                config['anchor'],
+                config['color'],
+                config['placeholder']
             )
-            
-
-    # def init_sensor_config(self) -> None:
-    #     """Set up sensor parsing configurations."""
-    #     self.sensor_configs = {
-    #         'temperature': {
-    #             'parser': lambda data: data.get('temperature'),
-    #             'display_format': lambda v: f"{v:.1f}" if v is not None else "TEMP",
-    #             'widget': 'temperature_value',
-
-    #         },
-    #         'humidity': {
-    #             'parser': lambda data: data.get('humidity'),
-    #             'display_format': lambda v: f"{v:.1f} %" if v is not None else "HMD",  
-    #             'widget': 'humidity_value',
-
-    #         },
-    #         'wind_speed': {
-    #             'parser': lambda data: data.get('wind_speed', 0.0) * 3.6 if data.get('wind_speed') is not None else None,
-    #             'display_format': lambda v: f"{v:.1f}" if v is not None else "W/S",
-    #             'widget': 'wind_speed_value',
-
-    #         },
-    #         'wind_direction': {
-    #             'parser': lambda data: data.get('wind_dir_degrees'),
-    #             'display_format': lambda v: f"{v}°" if v is not None else "W/D",
-    #             'widget': 'wind_direction_value',
-
-    #         },
-    #         'pressure': {
-    #             'parser': lambda data: data.get('pressure'),
-    #             'display_format': lambda v: f"{v:.1f}" if v is not None else "PS",
-    #             'widget': 'pressure_value',
-
-    #         },
-    #         'rain': {
-    #             'parser': lambda data: self.process_rainfall(data.get('rainfall')),
-    #             'display_format': lambda v: f"{v:.1f}" if v is not None else "RF",
-    #             'widget': 'rain_value',
-
-    #         },
-    #         'uv': {
-    #             'parser': lambda data: data.get('uv_index'),
-    #             'display_format': lambda v: f"{v:.2f}" if v is not None else "UV",
-    #             'widget': 'uv_value',
-
-    #         },
-    #         'aqi': {
-    #             'parser': lambda data: self.calculate_aqi(data.get('pm2_5')),
-    #             'display_format': lambda v: f"{v:.0f}" if v is not None else "AQI",
-    #             'widget': 'aqi_value',
-
-    #         }
-    #     }
-
-    def init_sensor_config(self) -> None:
-        """Set up sensor parsing configurations with state-based coloring."""
-        self.sensor_configs = {
-            'temperature': {
-                'parser': lambda data: data.get('temperature'),
-                'display_format': lambda v: f"{v:.1f}" if v is not None else "0.0", 
-                'widget': 'temperature_value',
-                'color': lambda v: "#FF3E00"  # Default color for temperature
-            },
-            'humidity': {
-                'parser': lambda data: data.get('humidity'),
-                'display_format': lambda v: f"{v:.1f} %" if v is not None else "0.0",
-                'widget': 'humidity_value',
-                'color': lambda v: self.get_humidity_state(v)[1] if v is not None else "#FFFFFF",
-                'state': lambda v: self.get_humidity_state(v)[0] if v is not None else "N/A"
-            },
-            'wind_speed': {
-                'parser': lambda data: data.get('wind_speed', 0.0) * 3.6 if data.get('wind_speed') is not None else None,
-                'display_format': lambda v: f"{v:.1f}" if v is not None else "0.0",
-                'widget': 'wind_speed_value',
-                'color': lambda v: "#006FFF"  # Default color for wind speed
-            },
-            'wind_direction': {
-                'parser': lambda data: data.get('wind_dir_degrees'),
-                'display_format': lambda v: f"{v}°" if v is not None else "0°",
-                'widget': 'wind_direction_value',
-                'color': lambda v: "#BF00FF",  # Default color for wind direction
-                'cardinal': lambda v: self._degrees_to_cardinal(v) if v is not None else "N/A"
-            },
-            'pressure': {
-                'parser': lambda data: data.get('pressure'),
-                'display_format': lambda v: f"{v:.1f}" if v is not None else "0.0",
-                'widget': 'pressure_value',
-                'color': lambda v: "#FFFF00"  # Default color for pressure
-            },
-            'rain': {
-                'parser': lambda data: self.process_rainfall(data.get('rainfall')),
-                'display_format': lambda v: f"{v:.1f}" if v is not None else "0.0",
-                'widget': 'rain_value',
-                'color': lambda v: "#FFFFFF"  # Default color for rain
-            },
-            'uv': {
-                'parser': lambda data: data.get('uv_index'),
-                'display_format': lambda v: f"{v:.2f}" if v is not None else "0.0",
-                'widget': 'uv_value',
-                'color': lambda v: self.get_uv_state(v)[1] if v is not None else "#FFFFFF",
-                'state': lambda v: self.get_uv_state(v)[0] if v is not None else "N/A"
-            },
-            'aqi': {
-                'parser': lambda data: self.calculate_aqi(data.get('pm2_5')),
-                'display_format': lambda v: f"{v:.0f}" if v is not None else "0.0",
-                'widget': 'aqi_value',
-                'color': lambda v: self.get_aqi_state(v)[1] if v is not None else "#FFFFFF",
-                'state': lambda v: self.get_aqi_state(v)[0] if v is not None else "N/A"
-            }
-        }
-    
-    def create_widget(
-        self, 
-        canvas: tk.Canvas, 
-        pos: Tuple[int, int], 
-        size: int, 
-        color: str = '#FFFFFF',
-        anchor: str = 'center',
-        sensor_type: Optional[str] = None
-    ) -> int:
-        """Create a widget, using sensor-specific placeholder if available."""
-        placeholder = "--"  # Default fallback
         
-        # Override with sensor-specific placeholder if the type is provided
-        if sensor_type and sensor_type in self.sensor_configs:
-            placeholder = self.sensor_configs[sensor_type]['display_format'](None)
-        
-        return canvas.create_text(
-            pos[0], pos[1],
-            text=placeholder,
-            font=('Arial', size, 'bold'),
-            fill=color,
-            anchor=anchor
-        )
 
     def start_gui_toggle(self) -> None:
         """Start the automatic GUI toggle timer."""
@@ -747,211 +568,136 @@ class WeatherStationSystem:
         
         self.log(f"Switched to GUI-{self.current_gui} (Next toggle in {next_interval//1000}s")
         self._toggle_timer = self.root.after(next_interval, self.toggle_gui)
+        
+    
+    def create_widget(self, canvas: tk.Canvas, pos: Tuple[int, int], 
+                 size: int, anchor: str = 'center',
+                 color: str = '#FFFFFF',placeholder: str = '--' ) -> int:  #  
+        """Create a widget with specified configuration."""
+        return canvas.create_text(
+            pos[0], pos[1],
+            text=placeholder,
+            font=('Arial', size, 'bold'),  # Changed to Arial font
+            # font=(self.config['gui'].get('font', 'Digital-7'), size, 'bold'),
+            fill=color,
+            anchor=anchor
+        )
 
     def update_display(self) -> None:
-        """Update all sensor display widgets with the latest sensor data."""
+        """Update widgets based on current active GUI."""
         try:
-            self.log(f"Updating display with sensor data: {self.sensor_data}")  # Debug log
-            
-            # Update sensor values
-            for sensor_name, config in self.sensor_configs.items():
-                try:
-                    value = config['parser'](self.sensor_data)
-                    widget = getattr(self, config['widget'])
-                    formatted_value = config['display_format'](value)
-                    self.log(f"Updating {sensor_name}: {formatted_value}")  # Debug log
-                    self.bg_canvas.itemconfig(widget, text=formatted_value)
-                except Exception as e:
-                    self.log(f"Error updating {sensor_name}: {e}", level=logging.ERROR)
-                    self.bg_canvas.itemconfig(getattr(self, config['widget']), text="--")
-            
-            # Update states with colors
-            self.update_state_displays()
+            # Update common widgets (time/date)
+            datetime_info = self.get_datetime_info()
+            for widget, value in zip(['day', 'date', 'time'], 
+                                   [datetime_info['day'], datetime_info['date'], datetime_info['time']]):
+                self.gui1_canvas.itemconfig(self.common_widgets[widget], text=value)
+                self.gui2_canvas.itemconfig(self.common_widgets[widget], text=value)
+
+            if self.current_gui == 1:
+                self.update_gui1_widgets()
+            else:
+                self.update_gui2_widgets()
+                
+            self.root.after(self.config['gui']['update_interval'], self.update_display)
             
         except Exception as e:
-            self.log(f"Display update error: {e}", level=logging.ERROR)
-        
-        # Schedule next update
-        self.root.after(self.config['gui']['update_interval'], self.update_display)        
-
-
-
-
-    # def update_display(self) -> None:
-    #     """Update widgets based on current active GUI."""
-    #     try:
-    #         # Update common widgets (time/date)
-    #         datetime_info = self.get_datetime_info()
-    #         for widget, value in zip(['day', 'date', 'time'], 
-    #                                [datetime_info['day'], datetime_info['date'], datetime_info['time']]):
-    #             self.gui1_canvas.itemconfig(self.common_widgets[widget], text=value)
-    #             self.gui2_canvas.itemconfig(self.common_widgets[widget], text=value)
-
-    #         if self.current_gui == 1:
-    #             self.update_gui1_widgets()
-    #         else:
-    #             self.update_gui2_widgets()
-                
-    #         self.root.after(self.config['gui']['update_interval'], self.update_display)
-            
-    #     except Exception as e:
-    #         self.log(f"Error updating display: {e}", level=logging.ERROR)
-
-    # def update_gui1_widgets(self) -> None:
-    #     """Update widgets for GUI-1 (basic metrics)."""
-    #     try:
-    #         for sensor_type in ['temperature', 'wind_speed', 'wind_direction']:
-    #             config = self.sensor_configs[sensor_type]
-    #             value = config['parser'](self.sensor_data)
-    #             formatted_value = config['display_format'](value)
-    #             self.gui1_canvas.itemconfig(
-    #                 self.gui1_widgets[sensor_type],
-    #                 text=formatted_value
-    #             )
-
-    #         # Handle humidity with state color
-    #         humidity = self.sensor_data.get('humidity')
-    #         if humidity is not None:
-    #             state, color = self.get_humidity_state(humidity)
-    #             formatted_value = f"{humidity:.1f} %"
-    #             self.gui1_canvas.itemconfig(
-    #                 self.gui1_widgets['humidity'],
-    #                 text=formatted_value,
-    #                 fill=color
-    #             )
-    #             self.gui1_canvas.itemconfig(
-    #                 self.gui1_widgets['humidity_state_value'],
-    #                 text=state,
-    #                 fill=color
-    #             )
-
-    #         # Update cardinal direction
-    #         wind_dir = self.sensor_data.get('wind_dir_degrees')
-    #         if wind_dir is not None:
-    #             cardinal = self._degrees_to_cardinal(wind_dir)
-    #             self.gui1_canvas.itemconfig(
-    #                 self.gui1_widgets['wind_direction_cardinal'],
-    #                 text=cardinal
-    #             )
-    #     except Exception as e:
-    #         self.log(f"Error updating GUI-1 widgets: {e}", level=logging.ERROR)
-
-    # def update_gui2_widgets(self) -> None:
-    #     """Update widgets for GUI-2 (advanced metrics)."""
-    #     try:
-    #         # Update UV with state color
-    #         uv = self.sensor_data.get('uv_index')
-    #         if uv is not None:
-    #             uv_state, uv_color = self.get_uv_state(uv)
-    #             self.gui2_canvas.itemconfig(
-    #                 self.gui2_widgets['uv'],
-    #                 text=f"{uv:.2f}",
-    #                 fill=uv_color
-    #             )
-    #             self.gui2_canvas.itemconfig(
-    #                 self.gui2_widgets['uv_state_value'],
-    #                 text=uv_state,
-    #                 fill=uv_color
-    #             )
-
-    #         # Update AQI with state color
-    #         pm2_5 = self.sensor_data.get('pm2_5')
-    #         if pm2_5 is not None:
-    #             aqi = self.calculate_aqi(pm2_5)
-    #             aqi_state, aqi_color = self.get_aqi_state(aqi)
-    #             self.gui2_canvas.itemconfig(
-    #                 self.gui2_widgets['aqi'],
-    #                 text=f"{aqi:.0f}",
-    #                 fill=aqi_color
-    #             )
-    #             self.gui2_canvas.itemconfig(
-    #                 self.gui2_widgets['aqi_state_value'],
-    #                 text=aqi_state,
-    #                 fill=aqi_color
-    #             )
-
-    #         # Update other sensors
-    #         for sensor_type in ['pressure', 'rain']:
-    #             config = self.sensor_configs[sensor_type]
-    #             value = config['parser'](self.sensor_data)
-    #             formatted_value = config['display_format'](value)
-    #             self.gui2_canvas.itemconfig(
-    #                 self.gui2_widgets[sensor_type],
-    #                 text=formatted_value
-    #             )
-
-    #         # Update sun info
-    #         sun_info = self.get_sun_info()
-    #         self.gui2_canvas.itemconfig(
-    #             self.gui2_widgets['sunrise'],
-    #             text=sun_info['sunrise']
-    #         )
-    #         self.gui2_canvas.itemconfig(
-    #             self.gui2_widgets['sunset'],
-    #             text=sun_info['sunset']
-    #         )
-    #     except Exception as e:
-    #         self.log(f"Error updating GUI-2 widgets: {e}", level=logging.ERROR)
+            self.log(f"Error updating display: {e}", level=logging.ERROR)
 
     def update_gui1_widgets(self) -> None:
         """Update widgets for GUI-1 (basic metrics)."""
         try:
-            for sensor_type in ['temperature', 'humidity', 'wind_speed', 'wind_direction']:
+            for sensor_type in ['temperature', 'wind_speed', 'wind_direction']:
                 config = self.sensor_configs[sensor_type]
                 value = config['parser'](self.sensor_data)
-                
-                # Update main value
                 formatted_value = config['display_format'](value)
                 self.gui1_canvas.itemconfig(
-                self.gui1_widgets[sensor_type],
-                text=formatted_value,
-                fill=config['color'](value))
-            
-                # Special handling for wind direction cardinal
-                if sensor_type == 'wind_direction' and 'cardinal' in config:
-                    cardinal = config['cardinal'](value)
-                    self.gui1_canvas.itemconfig(
-                        self.gui1_widgets['wind_direction_cardinal'],
-                        text=cardinal,
-                        fill=config['color'](value))
-                    
-            # Update humidity state separately
+                    self.gui1_widgets[sensor_type],
+                    text=formatted_value
+                )
+
+            # Handle humidity with state color
             humidity = self.sensor_data.get('humidity')
             if humidity is not None:
                 state, color = self.get_humidity_state(humidity)
+                formatted_value = f"{humidity:.1f} %"
+                self.gui1_canvas.itemconfig(
+                    self.gui1_widgets['humidity'],
+                    text=formatted_value,
+                    fill=color
+                )
                 self.gui1_canvas.itemconfig(
                     self.gui1_widgets['humidity_state_value'],
                     text=state,
-                    fill=color)
-                    
+                    fill=color
+                )
+
+            # Update cardinal direction
+            wind_dir = self.sensor_data.get('wind_dir_degrees')
+            if wind_dir is not None:
+                cardinal = self._degrees_to_cardinal(wind_dir)
+                self.gui1_canvas.itemconfig(
+                    self.gui1_widgets['wind_direction_cardinal'],
+                    text=cardinal
+                )
         except Exception as e:
             self.log(f"Error updating GUI-1 widgets: {e}", level=logging.ERROR)
 
     def update_gui2_widgets(self) -> None:
         """Update widgets for GUI-2 (advanced metrics)."""
         try:
-            for sensor_type in ['uv', 'aqi', 'pressure', 'rain']:
+            # Update UV with state color
+            uv = self.sensor_data.get('uv_index')
+            if uv is not None:
+                uv_state, uv_color = self.get_uv_state(uv)
+                self.gui2_canvas.itemconfig(
+                    self.gui2_widgets['uv'],
+                    text=f"{uv:.2f}",
+                    fill=uv_color
+                )
+                self.gui2_canvas.itemconfig(
+                    self.gui2_widgets['uv_state_value'],
+                    text=uv_state,
+                    fill=uv_color
+                )
+
+            # Update AQI with state color
+            pm2_5 = self.sensor_data.get('pm2_5')
+            if pm2_5 is not None:
+                aqi = self.calculate_aqi(pm2_5)
+                aqi_state, aqi_color = self.get_aqi_state(aqi)
+                self.gui2_canvas.itemconfig(
+                    self.gui2_widgets['aqi'],
+                    text=f"{aqi:.0f}",
+                    fill=aqi_color
+                )
+                self.gui2_canvas.itemconfig(
+                    self.gui2_widgets['aqi_state_value'],
+                    text=aqi_state,
+                    fill=aqi_color
+                )
+
+            # Update other sensors
+            for sensor_type in ['pressure', 'rain']:
                 config = self.sensor_configs[sensor_type]
                 value = config['parser'](self.sensor_data)
-                
-                # Update main value
                 formatted_value = config['display_format'](value)
                 self.gui2_canvas.itemconfig(
                     self.gui2_widgets[sensor_type],
-                    text=formatted_value,
-                    fill=config['color'](value))
-                
-                # Update state values for UV and AQI
-                if sensor_type in ['uv', 'aqi'] and 'state' in config:
-                    state = config['state'](value)
-                    self.gui2_canvas.itemconfig(
-                        self.gui2_widgets[f"{sensor_type}_state_value"],
-                        text=state,
-                        fill=config['color'](value))
-                        
+                    text=formatted_value
+                )
+
+            # Update sun info
+            sun_info = self.get_sun_info()
+            self.gui2_canvas.itemconfig(
+                self.gui2_widgets['sunrise'],
+                text=sun_info['sunrise']
+            )
+            self.gui2_canvas.itemconfig(
+                self.gui2_widgets['sunset'],
+                text=sun_info['sunset']
+            )
         except Exception as e:
             self.log(f"Error updating GUI-2 widgets: {e}", level=logging.ERROR)
-
 
     def force_gui_switch(self, event=None) -> None:
         """Manually trigger GUI switch on Tab press."""
@@ -970,19 +716,8 @@ class WeatherStationSystem:
         if not self._toggle_timer:
             self._toggle_timer = self.root.after(self.toggle_interval, self.toggle_gui)
 
-    # def init_modbus(self) -> None:
-    #     """Initialize Modbus serial client."""
-    #     self.modbus_client = ModbusSerialClient(
-    #         port=self.config['modbus']['port'],
-    #         baudrate=self.config['modbus']['baudrate'],
-    #         parity=self.config['modbus']['parity'],
-    #         stopbits=self.config['modbus']['stopbits'],
-    #         timeout=self.config['modbus']['timeout']
-    #     )
-    #     if not self.modbus_client.connect():
-    #         self.log("Modbus connection failed", logging.ERROR)
-    
     def init_modbus(self) -> None:
+        """Initialize Modbus serial client."""
         self.modbus_client = ModbusSerialClient(
             port=self.config['modbus']['port'],
             baudrate=self.config['modbus']['baudrate'],
@@ -990,58 +725,26 @@ class WeatherStationSystem:
             stopbits=self.config['modbus']['stopbits'],
             timeout=self.config['modbus']['timeout']
         )
-        self.log(f"Attempting Modbus connection on port {self.config['modbus']['port']}")
         if not self.modbus_client.connect():
             self.log("Modbus connection failed", logging.ERROR)
-        else:
-            self.log("Modbus connection successful")
 
 
-    # def read_environment_sensor(self) -> dict:
-    #     """Read temperature, humidity, and pressure."""
-    #     try:
-    #         result = self.modbus_client.read_holding_registers(
-    #             address=0x0000, count=3, slave=self.config['sensors']['environment'])
-    #         if result.isError():
-    #             return {'temperature': 0.0, 'humidity': 0.0, 'pressure': 0.0}
-    #         return {
-    #             'temperature': result.registers[0] / 10.0,
-    #             'humidity': result.registers[1] / 10.0,
-    #             'pressure': result.registers[2] / 10.0
-    #         }
-    #     except Exception as e:
-    #         self.log(f"Environment sensor error: {e}", logging.ERROR)
-    #         return {'temperature': 0.0, 'humidity': 0.0, 'pressure': 0.0}
 
     def read_environment_sensor(self) -> dict:
-        """Read temperature, humidity, and pressure from the environment sensor via Modbus."""
+        """Read temperature, humidity, and pressure."""
         try:
             result = self.modbus_client.read_holding_registers(
-                address=0x0000,
-                count=3,
-                slave=self.config['sensors']['environment']
-            )
-            
+                address=0x0000, count=3, slave=self.config['sensors']['environment'])
             if result.isError():
-                self.log("Environment sensor read error", logging.ERROR)
-                return {
-                    'temperature': None,
-                    'humidity': None,
-                    'pressure': None
-                }
-                
+                return {'temperature': 0.0, 'humidity': 0.0, 'pressure': 0.0}
             return {
                 'temperature': result.registers[0] / 10.0,
                 'humidity': result.registers[1] / 10.0,
                 'pressure': result.registers[2] / 10.0
             }
         except Exception as e:
-            self.log(f"Environment sensor error: {e}", level=logging.ERROR)
-            return {
-                'temperature': None,
-                'humidity': None,
-                'pressure': None
-            }
+            self.log(f"Environment sensor error: {e}", logging.ERROR)
+            return {'temperature': 0.0, 'humidity': 0.0, 'pressure': 0.0}
 
     def read_uv_sensor(self) -> dict:
         """Read UV index from sensor."""
@@ -1191,50 +894,19 @@ class WeatherStationSystem:
         self.csv_thread = threading.Thread(target=self.csv_writer_loop, daemon=True)
         self.sensor_thread.start()
         self.csv_thread.start()
-        
+
     def sensor_reader_loop(self) -> None:
-        """Main sensor reading loop with enhanced error handling, retries, and comprehensive logging."""
+        """Main sensor reading loop."""
         last_csv_time = time.time()
-        retries = self.config['modbus'].get('retries', 3)  # Default to 3 retries
-        last_successful_read = time.time()
-        connection_attempts = 0
-        
         while self.running:
             try:
-                # Connection phase with detailed logging
-                with self.modbus_lock:
-                    connected = False
-                    for attempt in range(retries):
-                        connection_attempts += 1
-                        try:
-                            if self.modbus_client.connect():
-                                self.log(f"Modbus connection successful (Attempt {attempt + 1}/{retries})")
-                                connected = True
-                                break
-                            else:
-                                self.log(f"Modbus connection failed (Attempt {attempt + 1}/{retries})", logging.WARNING)
-                        except Exception as conn_error:
-                            self.log(f"Modbus connection error (Attempt {attempt + 1}/{retries}): {str(conn_error)}", logging.ERROR)
-                        time.sleep(1)
-                    
-                    if not connected:
-                        self.log(f"Modbus connection failed after {retries} retries. Last error: {str(conn_error)}", logging.ERROR)
-                        if time.time() - last_successful_read > 300:  # 5 minutes without success
-                            self.log("Attempting to close and recreate Modbus client", logging.WARNING)
-                            try:
-                                if hasattr(self, 'modbus_client'):
-                                    self.modbus_client.close()
-                                self.init_modbus()  # Reinitialize the client
-                            except Exception as init_error:
-                                self.log(f"Error reinitializing Modbus client: {str(init_error)}", logging.ERROR)
-                        time.sleep(5)
-                        continue
-
-                # Data collection phase
+                if not self.modbus_client.connect():
+                    time.sleep(5)
+                    continue
+                
                 current_data = {'timestamp': datetime.now().isoformat()}
-                read_errors = 0
-                successful_reads = 0
-
+                
+                # Read all sensors
                 for sensor_name, reader in [
                     ('environment', self.read_environment_sensor),
                     ('uv', self.read_uv_sensor),
@@ -1244,212 +916,23 @@ class WeatherStationSystem:
                     ('rainfall', self.read_rainfall)
                 ]:
                     try:
-                        start_time = time.time()
                         data = reader()
-                        elapsed = time.time() - start_time
-                        
                         if data:
                             current_data.update(data)
-                            successful_reads += 1
-                            self.log(f"{sensor_name} read successfully in {elapsed:.2f}s: {data}")
-                        else:
-                            read_errors += 1
-                            self.log(f"No valid data returned from {sensor_name} (took {elapsed:.2f}s)", logging.WARNING)
                     except Exception as e:
-                        read_errors += 1
-                        self.log(f"Error reading {sensor_name}: {str(e)}", logging.ERROR)
-                        self.log(f"Traceback: {traceback.format_exc()}", logging.DEBUG)
-
-                # Update shared data structure
+                        self.log(f"Error reading {sensor_name}: {e}", logging.ERROR)
+                
                 self.sensor_data = current_data
-                last_successful_read = time.time()
                 
-                # Log summary of this read cycle
-                self.log(f"Read cycle complete. Successful: {successful_reads}, Errors: {read_errors}")
-                if successful_reads > 0:
-                    self.log(f"Current sensor data: {current_data}")
-                else:
-                    self.log("No valid sensor data received in this cycle", logging.WARNING)
-
-                # CSV writing logic
                 if time.time() - last_csv_time >= self.config['logging']['csv_interval']:
-                    try:
-                        if successful_reads > 0:  # Only write if we have some valid data
-                            self.data_queue.put(current_data)
-                            last_csv_time = time.time()
-                            self.log("Sensor data queued for CSV write")
-                        else:
-                            self.log("Skipping CSV write - no valid data", logging.WARNING)
-                    except Exception as e:
-                        self.log(f"Error queuing data for CSV: {str(e)}", logging.ERROR)
-
-                # Adaptive sleep based on performance
-                sleep_time = 2  # Base sleep time
-                if read_errors > 3:  # If many errors, wait longer
-                    sleep_time = min(10, sleep_time + read_errors)
-                time.sleep(sleep_time)
-
+                    self.data_queue.put(current_data)
+                    last_csv_time = time.time()
+                    
+                time.sleep(1)
             except Exception as e:
-                error_msg = f"Critical error in sensor read loop: {str(e)}\n{traceback.format_exc()}"
-                self.log(error_msg, logging.CRITICAL)
-                time.sleep(5)  # Longer sleep after critical errors
-                
-                # Attempt client reinitialization after critical errors
-                try:
-                    if hasattr(self, 'modbus_client'):
-                        self.modbus_client.close()
-                    self.init_modbus()
-                except Exception as init_error:
-                    self.log(f"Error during client reinitialization: {str(init_error)}", logging.CRITICAL)
-        
-    # def sensor_reader_loop(self) -> None:
-    #     """Main sensor reading loop with enhanced error handling."""
-    #     last_csv_time = time.time()
-    #     retries = self.config['modbus'].get('retries', 3)  # Default to 3 retries
-    #     while self.running:
-    #         try:
-    #             # Attempt Modbus connection with retries
-    #             with self.modbus_lock:
-    #                 connected = False
-    #                 for attempt in range(retries):
-    #                     if self.modbus_client.connect():
-    #                         self.log("Modbus connection successful in sensor_reader_loop")
-    #                         connected = True
-    #                         break
-    #                     self.log(f"Modbus connection attempt {attempt + 1} failed", logging.WARNING)
-    #                     time.sleep(1)
-    #                 if not connected:
-    #                     self.log("Modbus connection failed after retries", logging.ERROR)
-    #                     time.sleep(5)
-    #                     continue
-
-    #             current_data = {'timestamp': datetime.now().isoformat()}
-
-    #             # Read all sensors
-    #             for sensor_name, reader in [
-    #                 ('environment', self.read_environment_sensor),
-    #                 ('uv', self.read_uv_sensor),
-    #                 ('aqi', self.read_aqi_sensor),
-    #                 ('wind_speed', self.read_wind_speed),
-    #                 ('wind_direction', self.read_wind_direction),
-    #                 ('rainfall', self.read_rainfall)
-    #             ]:
-    #                 try:
-    #                     data = reader()
-    #                     if data:
-    #                         current_data.update(data)
-    #                     else:
-    #                         self.log(f"No data returned from {sensor_name} sensor", logging.WARNING)
-    #                 except Exception as e:
-    #                     self.log(f"Error reading {sensor_name}: {str(e)}", logging.ERROR)
-
-    #             self.sensor_data = current_data
-
-    #             # Write to CSV queue if interval has passed
-    #             if time.time() - last_csv_time >= self.config['logging']['csv_interval']:
-    #                 self.data_queue.put(current_data)
-    #                 last_csv_time = time.time()
-    #                 self.log("Sensor data queued for CSV write")
-
-    #             time.sleep(2)  # Increased sleep to reduce serial port strain
-
-    #         except Exception as e:
-    #             self.log(f"Sensor read loop error: {str(e)}", logging.ERROR)
-    #             time.sleep(2)  # Increased sleep on error
-
-    # def sensor_reader_loop(self) -> None:
-    #     """Main sensor reading loop."""
-    #     last_csv_time = time.time()
-    #     while self.running:
-    #         try:
-    #             if not self.modbus_client.connect():
-    #                 time.sleep(5)
-    #                 continue
-                
-    #             current_data = {'timestamp': datetime.now().isoformat()}
-                
-    #             # Read all sensors
-    #             for sensor_name, reader in [
-    #                 ('environment', self.read_environment_sensor),
-    #                 ('uv', self.read_uv_sensor),
-    #                 ('aqi', self.read_aqi_sensor),
-    #                 ('wind_speed', self.read_wind_speed),
-    #                 ('wind_direction', self.read_wind_direction),
-    #                 ('rainfall', self.read_rainfall)
-    #             ]:
-    #                 try:
-    #                     data = reader()
-    #                     if data:
-    #                         current_data.update(data)
-    #                 except Exception as e:
-    #                     self.log(f"Error reading {sensor_name}: {e}", logging.ERROR)
-                
-    #             self.sensor_data = current_data
-                
-    #             if time.time() - last_csv_time >= self.config['logging']['csv_interval']:
-    #                 self.data_queue.put(current_data)
-    #                 last_csv_time = time.time()
+                self.log(f"Sensor read error: {e}", logging.ERROR)
+                time.sleep(1)
                     
-    #             time.sleep(2)
-    #         except Exception as e:
-    #             self.log(f"Sensor read error: {e}", logging.ERROR)
-    #             time.sleep(2)
-           
-           
-    # def sensor_reader_loop(self) -> None:
-    #     """Main sensor reading loop with simulation support."""
-    #     last_csv_time = time.time()
-    #     while self.running:
-    #         try:
-    #             if self.simulation_mode:
-    #                 # Generate simulated data with natural variations
-    #                 current_data = {
-    #                     'temperature': round(25.0 + random.uniform(-2, 2), 1),
-    #                     'humidity': round(50.0 + random.uniform(-5, 5), 1),
-    #                     'pressure': round(1013.0 + random.uniform(-5, 5), 1),
-    #                     'uv_index': round(5.0 + random.uniform(-1, 1), 2),
-    #                     'wind_speed': round(10.0 + random.uniform(-3, 3), 1),
-    #                     'wind_dir_degrees': int(180 + random.uniform(-30, 30)) % 360,
-    #                     'rainfall': round(max(0, random.uniform(-0.1, 0.2)), 2),
-    #                     'pm2_5': round(35.0 + random.uniform(-5, 5), 1),
-    #                     'timestamp': datetime.now().isoformat()
-    #                 }
-    #             else:
-    #                 # Original real sensor reading logic
-    #                 if not self.modbus_client.connect():
-    #                     time.sleep(5)
-    #                     continue
-                    
-    #                 current_data = {'timestamp': datetime.now().isoformat()}
-                    
-    #                 # Read all sensors
-    #                 for sensor_name, reader in [
-    #                     ('environment', self.read_environment_sensor),
-    #                     ('uv', self.read_uv_sensor),
-    #                     ('aqi', self.read_aqi_sensor),
-    #                     ('wind_speed', self.read_wind_speed),
-    #                     ('wind_direction', self.read_wind_direction),
-    #                     ('rainfall', self.read_rainfall)
-    #                 ]:
-    #                     try:
-    #                         data = reader()
-    #                         if data:
-    #                             current_data.update(data)
-    #                     except Exception as e:
-    #                         self.log(f"Error reading {sensor_name}: {e}", logging.ERROR)
-                
-    #             self.sensor_data = current_data
-                
-    #             if time.time() - last_csv_time >= self.config['logging']['csv_interval']:
-    #                 self.data_queue.put(current_data)
-    #                 last_csv_time = time.time()
-                    
-    #             time.sleep(1)  # Important for pacing simulation updates
-                
-    #         except Exception as e:
-    #             self.log(f"Sensor read error: {e}", logging.ERROR)
-    #             time.sleep(1)
-                
     def csv_writer_loop(self) -> None:
         """Write sensor data to CSV file every 30 seconds, writing None when data becomes stale."""
         self.log(f"CSV writer thread started. Output directory: {self.csv_dir}")

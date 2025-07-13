@@ -1,0 +1,52 @@
+2025-07-10 07:01:14,036 - INFO - Weather Station System Initialized
+2025-07-10 07:01:14,555 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 07:01:14,557 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 07:01:19,558 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 07:01:20,584 - INFO - Shutting down weather station system
+2025-07-10 09:25:02,156 - INFO - Weather Station System Initialized
+2025-07-10 09:25:02,496 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 09:25:02,497 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 09:25:07,498 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 09:25:09,834 - INFO - Shutting down weather station system
+2025-07-10 10:11:13,541 - INFO - Weather Station System Initialized
+2025-07-10 10:11:14,045 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 10:11:14,048 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 10:11:18,246 - INFO - Shutting down weather station system
+2025-07-10 13:11:39,885 - INFO - Weather Station System Initialized
+2025-07-10 13:11:40,313 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 13:11:40,315 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 13:11:43,723 - INFO - Shutting down weather station system
+2025-07-10 16:04:15,671 - INFO - Weather Station System Initialized
+2025-07-10 16:04:16,019 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 16:04:16,020 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 16:04:17,636 - INFO - Shutting down weather station system
+2025-07-10 20:43:09,651 - INFO - Weather Station System Initialized
+2025-07-10 20:43:09,990 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 20:43:09,991 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 20:43:14,992 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 20:43:19,992 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 20:43:24,993 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 20:43:29,164 - INFO - Shutting down weather station system
+2025-07-10 23:50:45,232 - INFO - Weather Station System Initialized
+2025-07-10 23:50:45,570 - ERROR - Modbus connection failed in init_modbus
+2025-07-10 23:50:45,571 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:50:50,572 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:50:55,572 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:00,575 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:05,581 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:10,581 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:15,581 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:20,582 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:25,585 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:30,588 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:35,592 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:40,600 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:45,600 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:50,605 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:51:55,645 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:52:00,650 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:52:05,655 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:52:10,660 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:52:15,662 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:52:20,664 - ERROR - Modbus connection failed sensor reader loop
+2025-07-10 23:52:21,987 - INFO - Shutting down weather station system

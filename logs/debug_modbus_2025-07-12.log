@@ -1,0 +1,57 @@
+2025-07-12 18:42:53,791 - INFO - Modbus config: port=/dev/ttyUSB0, baudrate=9600
+2025-07-12 18:42:53,792 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:42:53,792 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:42:54,792 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:42:54,793 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:42:55,793 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:42:55,793 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:42:56,793 - ERROR - Modbus connection failed after retries
+2025-07-12 18:42:56,794 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:42:56,794 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:42:57,794 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:42:57,795 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:42:58,795 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:42:58,795 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:42:59,795 - ERROR - Modbus connection failed after retries
+2025-07-12 18:43:04,796 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:43:04,796 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:43:05,796 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:43:05,797 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:43:06,797 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:43:06,797 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:43:07,797 - ERROR - Modbus connection failed after retries
+2025-07-12 18:43:08,817 - INFO - Modbus client closed
+2025-07-12 18:43:08,818 - INFO - Debugging stopped by user
+2025-07-12 18:52:54,737 - INFO - Modbus config: port=/dev/ttyUSB0, baudrate=9600
+2025-07-12 18:52:54,738 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:52:54,740 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:52:55,742 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:52:55,742 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:52:56,742 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:52:56,743 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:52:57,743 - ERROR - Modbus connection failed after retries
+2025-07-12 18:52:57,743 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:52:57,743 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:52:58,744 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:52:58,748 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:52:59,748 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:52:59,748 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:53:00,749 - ERROR - Modbus connection failed after retries
+2025-07-12 18:53:05,749 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:05,750 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:53:06,750 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:06,750 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:53:07,751 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:07,751 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:53:08,751 - ERROR - Modbus connection failed after retries
+2025-07-12 18:53:13,752 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:13,752 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:53:14,752 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:14,753 - WARNING - Modbus connection attempt 2 failed
+2025-07-12 18:53:15,753 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:15,754 - WARNING - Modbus connection attempt 3 failed
+2025-07-12 18:53:16,755 - ERROR - Modbus connection failed after retries
+2025-07-12 18:53:21,755 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-12 18:53:21,755 - WARNING - Modbus connection attempt 1 failed
+2025-07-12 18:53:21,774 - INFO - Modbus client closed
+2025-07-12 18:53:21,774 - INFO - Debugging stopped by user
