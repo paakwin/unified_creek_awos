@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2025-07-09 15:13:11,344 - ERROR - Modbus connection failed sensor reader loop
 2025-07-09 15:13:16,345 - ERROR - Modbus connection failed sensor reader loop
 2025-07-09 15:13:21,345 - ERROR - Modbus connection failed sensor reader loop
@@ -29,3 +30,10 @@
 2025-07-09 22:10:52,094 - ERROR - Modbus connection failed in init_modbus
 2025-07-09 22:10:52,094 - ERROR - Modbus connection failed sensor reader loop
 2025-07-09 22:10:56,552 - INFO - Shutting down weather station system
+=======
+2025-07-09 08:40:06,425 - INFO - Weather Station System Initialized
+2025-07-09 08:40:06,814 - ERROR - Modbus connection failed in init_modbus
+2025-07-09 08:40:06,815 - ERROR - Modbus connection failed sensor reader loop
+2025-07-09 08:40:11,815 - ERROR - Modbus connection failed sensor reader loop
+2025-07-09 08:40:15,381 - INFO - Shutting down weather station system
+>>>>>>> dccbb76 (code update)

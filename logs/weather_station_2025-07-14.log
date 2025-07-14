@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2025-07-14 12:10:17,565 - INFO - Starting initialization...
 2025-07-14 12:10:25,373 - INFO - Attempting Modbus connection on port /dev/ttyUSB0
 2025-07-14 12:10:25,373 - ERROR - Modbus connection failed
@@ -37050,3 +37051,91 @@ Traceback (most recent call last):
 UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
 
 2025-07-14 21:09:04,345 - INFO - Cleanup completed, exiting application
+=======
+2025-07-14 22:18:15,011 - INFO - Weather Station System Initialized
+2025-07-14 22:18:15,419 - ERROR - Modbus connection failed in init_modbus
+2025-07-14 22:18:15,419 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:20,420 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:25,420 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:30,421 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:35,421 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:40,827 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:45,830 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:50,834 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:18:55,919 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:01,019 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:06,022 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:11,025 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:16,028 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:21,032 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:26,035 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:31,038 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:36,041 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:41,044 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:46,047 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:51,050 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:19:56,051 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:01,054 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:06,056 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:11,058 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:16,061 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:21,063 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:26,066 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:31,068 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:36,071 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:41,074 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:46,077 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:51,080 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:20:56,085 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:01,087 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:06,090 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:11,092 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:16,095 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:21,097 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:26,100 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:31,102 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:36,105 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:41,108 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:46,111 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:51,114 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:21:56,115 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:01,117 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:06,118 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:11,118 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:16,121 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:21,124 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:26,125 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:31,125 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:36,126 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:41,126 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:46,126 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:51,127 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:22:56,127 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:01,127 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:06,128 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:11,131 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:16,134 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:21,134 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:26,135 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:31,138 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:36,138 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:41,138 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:46,141 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:51,144 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:23:56,147 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:01,149 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:06,152 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:11,155 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:16,156 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:21,156 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:26,157 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:31,157 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:36,157 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:41,158 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:46,158 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:51,158 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:24:56,159 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:25:01,159 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:25:06,159 - ERROR - Modbus connection failed sensor reader loop
+2025-07-14 22:25:09,031 - INFO - Shutting down weather station system
+>>>>>>> dccbb76 (code update)
