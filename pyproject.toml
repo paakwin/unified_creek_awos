@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "astral>=3.2",
+    "black>=25.1.0",
     "matplotlib>=3.10.3",
     "numpy>=2.2.6",
     "pandas>=2.2.3",
