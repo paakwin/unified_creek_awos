@@ -364,7 +364,7 @@ class WeatherStationSystem:
                 },
                 "day": {
                     "size": 80,
-                    "color": "#FF0000",
+                    "color": "#059B9B",
                     "position": (990, 78),
                     "anchor": "center",
                 },
@@ -374,37 +374,37 @@ class WeatherStationSystem:
                 "temperature": {
                     "size": 250,
                     "color": "#FF3E00",
-                    "position": (550, 420),
+                    "position": (595, 420),
                     "anchor": "center",
                 },
                 "humidity": {
                     "size": 180,
                     "color": "#00FF00",
-                    "position": (1500, 355),
+                    "position": (1470, 355),
                     "anchor": "center",
                 },
                 "humidity_state_value": {
                     "size": 70,
                     "color": "#00FF00",
-                    "position": (1500, 520),  # Position below humidity value
+                    "position": (1470, 520),  # Position below humidity value
                     "anchor": "center",
                 },
                 "wind_speed": {
                     "size": 180,
                     "color": "#BF00FF",
-                    "position": (450, 890),
+                    "position": (435, 890),
                     "anchor": "center",
                 },
                 "wind_direction": {
                     "size": 100,
                     "color": "#006FFF", 
-                    "position": (1690, 890),
+                    "position": (1675, 890),
                     "anchor": "center",
                 },
                 "wind_direction_cardinal": {  # Add this new widget config
                     "size": 180,
                     "color": "#006FFF",
-                    "position": (1210, 890),
+                    "position": (1170, 890),
                     "anchor": "center",
                 },
             },
