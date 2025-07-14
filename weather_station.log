@@ -1,0 +1,15 @@
+2025-07-13 06:51:13,734 - INFO - Starting initialization...
+2025-07-13 06:51:21,874 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-13 06:51:22,875 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-13 06:51:23,876 - ERROR - [Errno 2] could not open port /dev/ttyUSB0: [Errno 2] No such file or directory: '/dev/ttyUSB0'
+2025-07-13 06:51:24,877 - ERROR - Modbus connection failed after retries
+2025-07-13 06:51:24,877 - CRITICAL - Fatal error: Failed to establish Modbus connection
+Traceback (most recent call last):
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1758, in main
+    app = WeatherStationSystem(root)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 72, in __init__
+    self.init_modbus()
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1018, in init_modbus
+    raise RuntimeError("Failed to establish Modbus connection")
+RuntimeError: Failed to establish Modbus connection
