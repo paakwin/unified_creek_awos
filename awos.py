@@ -364,7 +364,7 @@ class WeatherStationSystem:
                 },
                 "day": {
                     "size": 80,
-                    "color": "#059B9B",
+                    "color": "#1BF7F7",
                     "position": (990, 78),
                     "anchor": "center",
                 },
@@ -374,7 +374,7 @@ class WeatherStationSystem:
                 "temperature": {
                     "size": 230,
                     "color": "#FF3E00",
-                    "position": (585, 420),
+                    "position": (510, 420),
                     "anchor": "center",
                 },
                 "humidity": {
@@ -536,7 +536,7 @@ class WeatherStationSystem:
         self.sensor_configs = {
             "temperature": {
                 "parser": lambda data: data.get("temperature"),
-                "display_format": lambda v: f"{v:.1f}" if v is not None else "0.0",
+                "display_format": lambda v: f"{v:.1f}" if v is not None else "37.8",
                 "color": lambda v: "#FF3E00",
             },
             "humidity": {
@@ -556,12 +556,12 @@ class WeatherStationSystem:
                     else None
                 ),
                 "display_format": lambda v: f"{v:.1f}" if v is not None else "0.0",
-                "color": lambda v: "#BF00FF",
+                "color": lambda v: "#FFFFFF",
             },
             "wind_direction": {
                 "parser": lambda data: data.get("wind_dir_degrees"),
                 "display_format": lambda v: f"{v}°" if v is not None else "0°",
-                "color": lambda v: "#006FFF",
+                "color": lambda v: "#FFFFFF",
                 "cardinal": lambda v: (
                     self._degrees_to_cardinal(v) if v is not None else "N/A"
                 ),

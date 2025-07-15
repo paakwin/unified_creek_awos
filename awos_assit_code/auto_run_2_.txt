@@ -1,0 +1,64 @@
+sudo nano /etc/xdg/autostart/awos.desktop
+
+[Desktop Entry]
+Type=Application
+Name=Camera GUI
+Exec=python3 /home/pi/Desktop/PythonCodes/awos.py
+
+
+
+***************************************************************************************************************************************
+*******************************************Auto Run Program on Shut Down OR Reset******************************************************
+***************************************************************************************************************************************
+
+sudo nano /etc/systemd/system/awos.service
+
+[Unit]
+Description=Creek AWOS
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/asif/Desktop/unified_creek_awos/awos.py
+WorkingDirectory=/home/asif/Desktop/unified_creek_awos
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=asif
+Group=asif
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+
+
+
+
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable awos.service
+sudo systemctl start awos.service
+
+sudo systemctl status awos.service
+
+sudo reboot
+
+
+***************************************************************************************************************************************
+*******************************************Auto Run Program on Shut Down OR Reset******************************************************
+***************************************************************************************************************************************
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+***************************************************************************************************************************************
+*********************************************Delete OR Remove Auto Run Service*********************************************************
+***************************************************************************************************************************************
+
+ls /etc/systemd/system/
+
+sudo systemctl stop awos.service
+sudo systemctl disable awos.service
+sudo rm /etc/systemd/system/awos.service
+sudo systemctl daemon-reload
+systemctl status awos.service
+systemctl list-unit-files | grep awos
