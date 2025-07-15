@@ -1263,3 +1263,74 @@ Traceback (most recent call last):
 UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
 
 2025-07-15 11:23:16,617 - INFO - Cleanup completed, exiting application
+2025-07-15 11:54:16,912 - INFO - Starting initialization...
+2025-07-15 11:54:24,820 - INFO - Attempting Modbus connection on port /dev/ttyUSB0
+2025-07-15 11:54:24,821 - ERROR - Modbus connection failed
+2025-07-15 11:54:24,822 - INFO - CSV writer thread started. Output directory: /home/asif/Desktop/unified_creek_awos/csv_data
+2025-07-15 11:54:24,822 - WARNING - Modbus connection failed (Attempt 1/3)
+2025-07-15 11:54:24,826 - INFO - Switched to GUI-2 (Next toggle in 5s
+2025-07-15 11:54:25,823 - WARNING - Modbus connection failed (Attempt 2/3)
+2025-07-15 11:54:26,823 - WARNING - Modbus connection failed (Attempt 3/3)
+2025-07-15 11:54:27,824 - CRITICAL - Critical error in sensor read loop: cannot access local variable 'conn_error' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1088, in sensor_reader_loop
+    f"Modbus connection failed after {retries} retries. Last error: {str(conn_error)}",
+                                                                         ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
+
+2025-07-15 11:54:29,832 - INFO - Switched to GUI-1 (Next toggle in 10s
+2025-07-15 11:54:32,825 - INFO - Attempting Modbus connection on port /dev/ttyUSB0
+2025-07-15 11:54:32,825 - ERROR - Modbus connection failed
+2025-07-15 11:54:32,825 - WARNING - Modbus connection failed (Attempt 1/3)
+2025-07-15 11:54:33,826 - WARNING - Modbus connection failed (Attempt 2/3)
+2025-07-15 11:54:34,826 - WARNING - Modbus connection failed (Attempt 3/3)
+2025-07-15 11:54:35,827 - CRITICAL - Critical error in sensor read loop: cannot access local variable 'conn_error' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1088, in sensor_reader_loop
+    f"Modbus connection failed after {retries} retries. Last error: {str(conn_error)}",
+                                                                         ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
+
+2025-07-15 11:54:39,837 - INFO - Switched to GUI-2 (Next toggle in 5s
+2025-07-15 11:54:40,827 - INFO - Attempting Modbus connection on port /dev/ttyUSB0
+2025-07-15 11:54:40,827 - ERROR - Modbus connection failed
+2025-07-15 11:54:40,827 - WARNING - Modbus connection failed (Attempt 1/3)
+2025-07-15 11:54:41,828 - WARNING - Modbus connection failed (Attempt 2/3)
+2025-07-15 11:54:42,828 - WARNING - Modbus connection failed (Attempt 3/3)
+2025-07-15 11:54:43,829 - CRITICAL - Critical error in sensor read loop: cannot access local variable 'conn_error' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1088, in sensor_reader_loop
+    f"Modbus connection failed after {retries} retries. Last error: {str(conn_error)}",
+                                                                         ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
+
+2025-07-15 11:54:44,840 - INFO - Switched to GUI-1 (Next toggle in 10s
+2025-07-15 11:54:48,829 - INFO - Attempting Modbus connection on port /dev/ttyUSB0
+2025-07-15 11:54:48,830 - ERROR - Modbus connection failed
+2025-07-15 11:54:48,830 - WARNING - Modbus connection failed (Attempt 1/3)
+2025-07-15 11:54:49,830 - WARNING - Modbus connection failed (Attempt 2/3)
+2025-07-15 11:54:50,831 - WARNING - Modbus connection failed (Attempt 3/3)
+2025-07-15 11:54:51,832 - CRITICAL - Critical error in sensor read loop: cannot access local variable 'conn_error' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1088, in sensor_reader_loop
+    f"Modbus connection failed after {retries} retries. Last error: {str(conn_error)}",
+                                                                         ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
+
+2025-07-15 11:54:54,828 - INFO - CSV write completed at 2025-07-15T11:54:54.828381
+2025-07-15 11:54:54,843 - INFO - Switched to GUI-2 (Next toggle in 5s
+2025-07-15 11:54:56,832 - INFO - Attempting Modbus connection on port /dev/ttyUSB0
+2025-07-15 11:54:56,833 - ERROR - Modbus connection failed
+2025-07-15 11:54:56,834 - WARNING - Modbus connection failed (Attempt 1/3)
+2025-07-15 11:54:57,834 - WARNING - Modbus connection failed (Attempt 2/3)
+2025-07-15 11:54:58,834 - WARNING - Modbus connection failed (Attempt 3/3)
+2025-07-15 11:54:59,835 - CRITICAL - Critical error in sensor read loop: cannot access local variable 'conn_error' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/asif/Desktop/unified_creek_awos/awos.py", line 1088, in sensor_reader_loop
+    f"Modbus connection failed after {retries} retries. Last error: {str(conn_error)}",
+                                                                         ^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'conn_error' where it is not associated with a value
+
+2025-07-15 11:54:59,847 - INFO - Switched to GUI-1 (Next toggle in 10s
+2025-07-15 11:55:01,354 - INFO - Shutting down weather station system
+2025-07-15 11:55:03,355 - INFO - Cleanup completed, exiting application

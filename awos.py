@@ -965,7 +965,7 @@ class WeatherStationSystem:
 
         return self.daily_rain_total
     
-    def reset_daily_rainfall(self) -> None:threading.Thread(target=self.daily_rain_reset_loop, daemon=True).start()
+    def reset_daily_rainfall(self) -> None:
         """Reset daily rain counter and log the day's total."""
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         final_rain = self.daily_rainfall
@@ -983,9 +983,10 @@ class WeatherStationSystem:
                 writer.writerow(['date', 'total_rainfall_mm'])
             writer.writerow([timestamp, f"{final_rain:.1f}"])
 
-        # Reset for next day
+        # Reset counters
         self.daily_rainfall = 0.0
         self.last_rain_count = None
+
         
     def daily_rain_reset_loop(self) -> None:
         """Background thread to reset daily rainfall at midnight."""
