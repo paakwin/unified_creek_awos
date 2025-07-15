@@ -124,7 +124,7 @@ class WeatherStationSystem:
                 "font": "Arial",
                 "rain_reset_threshold": 0.2,
                 "rain_reset_time": 12,
-                "toggle_interval": 10000,
+                # "toggle_interval": 10000,
             },
             "location": {
                 "sun_data_file": "karachi_sun_data.csv",
@@ -353,7 +353,7 @@ class WeatherStationSystem:
                 "time": {
                     "size": 80,
                     "color": "#FFFFFF",
-                    "position": (1510,78),
+                    "position": (1490, 78),
                     "anchor": "center",
                 },
                 "date": {
@@ -372,9 +372,9 @@ class WeatherStationSystem:
             # GUI-1 specific widgets
             "gui1": {
                 "temperature": {
-                    "size": 250,
+                    "size": 230,
                     "color": "#FF3E00",
-                    "position": (595, 420),
+                    "position": (585, 420),
                     "anchor": "center",
                 },
                 "humidity": {
@@ -395,13 +395,14 @@ class WeatherStationSystem:
                     "position": (435, 890),
                     "anchor": "center",
                 },
-                "wind_direction": {
+                "wind_direction_cardinal": {  # Add this new widget config
+                
                     "size": 100,
                     "color": "#006FFF", 
-                    "position": (1675, 890),
+                    "position": (1650, 890),
                     "anchor": "center",
                 },
-                "wind_direction_cardinal": {  # Add this new widget config
+                "wind_direction": {
                     "size": 180,
                     "color": "#006FFF",
                     "position": (1170, 890),
@@ -963,6 +964,41 @@ class WeatherStationSystem:
             self.last_rain_value = current_rain
 
         return self.daily_rain_total
+    
+    def reset_daily_rainfall(self) -> None:threading.Thread(target=self.daily_rain_reset_loop, daemon=True).start()
+        """Reset daily rain counter and log the day's total."""
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        final_rain = self.daily_rainfall
+
+        # Log reset in main log
+        self.log(f"Daily rainfall reset at midnight. Final total: {final_rain:.1f} mm", level=logging.INFO)
+
+        # Append to rain_log.csv
+        rain_log_path = os.path.join(self.config['logging']['path'], 'rain_log.csv')
+        file_exists = os.path.isfile(rain_log_path)
+        
+        with open(rain_log_path, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            if not file_exists:
+                writer.writerow(['date', 'total_rainfall_mm'])
+            writer.writerow([timestamp, f"{final_rain:.1f}"])
+
+        # Reset for next day
+        self.daily_rainfall = 0.0
+        self.last_rain_count = None
+        
+    def daily_rain_reset_loop(self) -> None:
+        """Background thread to reset daily rainfall at midnight."""
+        while True:
+            now = datetime.datetime.now()
+            next_midnight = (now + datetime.timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+            seconds_until_midnight = (next_midnight - now).total_seconds()
+
+            self.log(f"Rain reset thread sleeping until midnight ({int(seconds_until_midnight)} seconds)", logging.DEBUG)
+            time.sleep(seconds_until_midnight)
+
+            self.reset_daily_rainfall()
+
 
     def calculate_aqi(self, pm2_5: float) -> float:
         """Calculate AQI from PM2.5 value."""
@@ -986,14 +1022,32 @@ class WeatherStationSystem:
             return None
 
     def start_threads(self) -> None:
-        """Start sensor and CSV writer threads."""
+        """Start sensor, CSV writer, and daily reset threads."""
         self.running = True
+
+        # Start sensor reading thread
         self.sensor_thread = threading.Thread(
-            target=self.sensor_reader_loop, daemon=True
+            target=self.sensor_reader_loop,
+            daemon=True
         )
-        self.csv_thread = threading.Thread(target=self.csv_writer_loop, daemon=True)
+
+        # Start CSV writer thread
+        self.csv_thread = threading.Thread(
+            target=self.csv_writer_loop,
+            daemon=True
+        )
+
+        # Start daily rainfall reset thread
+        self.rain_reset_thread = threading.Thread(
+            target=self.daily_rain_reset_loop,
+            daemon=True
+        )
+
+        # Start all threads
         self.sensor_thread.start()
         self.csv_thread.start()
+        self.rain_reset_thread.start()
+
 
     def sensor_reader_loop(self) -> None:
         """Main sensor reading loop with enhanced error handling, retries, and comprehensive logging."""
