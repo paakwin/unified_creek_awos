@@ -36,6 +36,7 @@ class WeatherStationSystem:
         """Initialize the WeatherStationSystem with dual GUI support."""
         self.root = root
         self.root.title("Weather Station Dashboard")
+        self.root.after(1000, self._keep_focus)  
         self.setup_logging()  # MUST come first!
         self.log("Starting initialization...")  # Now safe to use
 
@@ -75,7 +76,6 @@ class WeatherStationSystem:
             # self.root.bind('<F11>', self.toggle_simulation_mode)
 
             # Schedule periodic tasks
-            self.root.after(1000, self._keep_focus)  # Keep window focused every 1s
             self.root.after(3600000, self.check_log_rotation)  # Check logs hourly
 
             # Set GUI toggle windows
@@ -237,9 +237,10 @@ class WeatherStationSystem:
         except Exception as e:
             print(f"Error rotating logs: {e}")
 
-    # def log(self, message: str, level: int = logging.INFO) -> None:
-    #     """Log a message with specified level."""
-    #     self.logger.log(level, message)
+    def _keep_focus(self):
+        """Periodically bring window to front to fight popups"""
+        self.root.lift()
+        self.root.after(1000, self._keep_focus)  # Recheck every 1 second
 
     def init_data_structures(self) -> None:
         """Initialize data storage structures."""
@@ -437,7 +438,7 @@ class WeatherStationSystem:
                 },
                 "pressure": {
                     "size": 150,
-                    "color": "#FFFF00",
+                    "color": "#FFFFFF",
                     "position": (335, 900),
                     "anchor": "center",
                 },
@@ -536,7 +537,7 @@ class WeatherStationSystem:
         self.sensor_configs = {
             "temperature": {
                 "parser": lambda data: data.get("temperature"),
-                "display_format": lambda v: f"{v:.1f}" if v is not None else "37.8",
+                "display_format": lambda v: f"{v:.1f}" if v is not None else "0.0",
                 "color": lambda v: "#FF3E00",
             },
             "humidity": {
@@ -569,7 +570,7 @@ class WeatherStationSystem:
             "pressure": {
                 "parser": lambda data: data.get("pressure"),
                 "display_format": lambda v: f"{v:.1f}" if v is not None else "0.0",
-                "color": lambda v: "#FFFF00",
+                "color": lambda v: "#FFFFFF",
             },
             "rain": {
                 "parser": lambda data: self.process_rainfall(data.get("rainfall")),
@@ -1444,10 +1445,6 @@ class WeatherStationSystem:
         finally:
             self.root.quit()
 
-    def _keep_focus(self) -> None:
-        """Maintain window focus."""
-        self.root.lift()
-        self.root.after(1000, self._keep_focus)
 
     def toggle_pause_on_current_gui(self, event=None) -> None:
         """Toggle pause/resume on current GUI display."""
