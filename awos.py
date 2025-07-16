@@ -354,19 +354,19 @@ class WeatherStationSystem:
                 "time": {
                     "size": 80,
                     "color": "#FFFFFF",
-                    "position": (1490, 78),
+                    "position": (1510, 78),
                     "anchor": "center",
                 },
                 "date": {
                     "size": 80,
                     "color": "#FFFFFF",
-                    "position": (340, 78),
+                    "position": (335, 78),
                     "anchor": "center",
                 },
                 "day": {
                     "size": 80,
                     "color": "#1BF7F7",
-                    "position": (990, 78),
+                    "position": (1010, 78),
                     "anchor": "center",
                 },
             },
