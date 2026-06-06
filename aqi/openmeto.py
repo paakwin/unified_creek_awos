@@ -17,8 +17,8 @@ params = {
     "longitude": 67.1259,
     "hourly": "pm2_5,pm10,carbon_dioxide,carbon_monoxide,nitrogen_dioxide,sulphur_dioxide,ozone",
     "domains": "cams_global",
-    "start_date": "2024-05-29",
-    "end_date": "2024-12-30",
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
 }
 responses = openmeteo.weather_api(url, params=params)
 

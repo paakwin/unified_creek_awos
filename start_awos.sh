@@ -4,7 +4,7 @@
 sleep 10
 
 # Change to project directory 
-cd /home/asif/Desktop/unified_creek_awos
+cd /home/soe/unified_creek_awos/
 
 # Activate virtual environment
 source .venv/bin/activate

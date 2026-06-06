@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Generated data files
+csv_data/weather_data.csv
+.cache.sqlite

@@ -9,9 +9,12 @@ dependencies = [
     "black>=25.1.0",
     "matplotlib>=3.10.3",
     "numpy>=2.2.6",
+    "openmeteo-requests>=1.7.5",
     "pandas>=2.2.3",
     "pillow>=11.2.1",
     "pymodbus>=3.9.2",
     "pyserial>=3.5",
+    "requests-cache>=1.3.2",
+    "retry-requests>=2.0.0",
     "screeninfo>=0.8.1",
 ]

@@ -13,7 +13,8 @@ python awos.py
 
 
 Make the startup script executable:
-chmod +x /home/asif/Desktop/unified_creek_awos/start_awos.sh
+
+chmod +x /home/soe/unified_creek_awos/start_awos.sh
 
 Create the autostart directory:
 mkdir -p ~/.config/autostart
@@ -22,7 +23,7 @@ Create the desktop entry file:
 [Desktop Entry]
 Name=AWOS
 Comment=Start AWOS Weather Station
-Exec=/home/asif/Desktop/unified_creek_awos/start_awos.sh
+Exec=/home/soe/unified_creek_awos/start_awos.sh
 Type=Application
 X-GNOME-Autostart-enabled=true
 

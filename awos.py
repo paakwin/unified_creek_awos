@@ -841,7 +841,7 @@ class WeatherStationSystem:
             return {"uv_index": 0.0}
 
     def read_aqi_sensor(self) -> dict:
-        """Read AQI data from CSV file."""
+        """Read AQI data from CSV file, ignoring year."""
         try:
             current_time = datetime.now()
             csv_path = os.path.join(
@@ -852,8 +852,14 @@ class WeatherStationSystem:
                 return {"pm2_5": 0.0}
 
             df = pd.read_csv(csv_path)
-            df["date"] = pd.to_datetime(df["date"]).dt.tz_localize(None)
-            closest_row = df.iloc[(df["date"] - current_time).abs().argsort()[0]]
+            df["date"] = pd.to_datetime(df["date"], errors="coerce").dt.tz_localize(None)
+            
+            # Replace year in CSV dates with current year to ignore year mismatch
+            df["date"] = df["date"].apply(lambda x: x.replace(year=current_time.year) if pd.notna(x) else x)
+            
+            # Find closest timestamp
+            closest_idx = (df["date"] - current_time).abs().idxmin()
+            closest_row = df.loc[closest_idx]
 
             return {
                 "co2": float(closest_row["carbon_dioxide"]),

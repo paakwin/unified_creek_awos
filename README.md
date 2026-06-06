@@ -38,18 +38,100 @@ A comprehensive weather station and dashboard system implemented in Python using
 
 ## 🚀 Getting Started
 
-1. Clone the repository:
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/paakwin/unified_creek_awos.git
+   cd unified_creek_awos
    ```
-2. Install dependencies with uv:
+
+2. **Optional: Install Open-Meteo client and AQI helpers** (recommended for AQI/air-quality features):
+
+   Using `uv` (preferred if you use the `uv` package manager):
+   ```bash
+   uv add openmeteo-requests requests-cache retry-requests
+   ```
+
+   Or using `pip`:
+   ```bash
+   pip install openmeteo-requests requests-cache retry-requests
+   ```
+
+3. **Install dependencies with uv**:
    ```bash
    uv sync
    ```
-3. Run the program:
+
+4. **Run the program**:
    ```bash
-   uv run python main.py
+   uv run python awos.py
    ```
+
+## 🔄 Auto-Start Setup (Linux)
+
+To make AWOS start automatically when you log in:
+
+### 1. Create a startup script
+
+Create a file named `start_awos.sh`:
+
+```bash
+#!/bin/bash
+
+# Change to project directory
+cd /home/soe/unified_creek_awos
+
+# Activate virtual environment
+source .venv/bin/activate
+
+# Run the Python script
+python awos.py
+```
+
+Make it executable:
+```bash
+chmod +x /home/soe/unified_creek_awos/start_awos.sh
+```
+
+### 2. Create the autostart directory
+
+```bash
+mkdir -p ~/.config/autostart
+```
+
+### 3. Create the desktop entry file
+
+```bash
+cat > ~/.config/autostart/awos.desktop << 'EOF'
+[Desktop Entry]
+Name=AWOS
+Comment=Start AWOS Weather Station
+Exec=/home/soe/unified_creek_awos/start_awos.sh
+Type=Application
+X-GNOME-Autostart-enabled=true
+EOF
+```
+
+Make it executable:
+```bash
+chmod +x ~/.config/autostart/awos.desktop
+```
+
+### 4. Test the startup script
+
+```bash
+/home/soe/unified_creek_awos/start_awos.sh
+```
+
+### 5. Verify setup
+
+If everything is set up correctly:
+- The script will run automatically when you log in
+- The virtual environment will be activated
+- The AWOS application will start
+
+To test without rebooting, log out and log back in. The application should start automatically.
+
+If you need to modify the startup behavior, edit the `~/.config/autostart/awos.desktop` file.
 
 ## ⚡️ Key Innovations
 
